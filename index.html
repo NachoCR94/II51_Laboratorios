@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>II-51 | Laboratorios de Programación Internet</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1f2937; /* Gris Oscuro */
+            color: #e5e7eb; /* Blanco ligeramente grisáceo */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.5), 0 4px 6px -2px rgba(59, 130, 246, 0.3); /* Sombra azul */
+        }
+        .header-title {
+            border-bottom: 2px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="p-6 sm:p-10">
+
+    <header class="text-center mb-12">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl sm:text-6xl font-extrabold tracking-tight header-title pb-4 text-white">
+                II-51 Laboratorios
+            </h1>
+            <p class="text-xl mt-3 font-light text-gray-400">
+                Programación en Internet - Universidad Central
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Tarjeta Laboratorio 01 -->
+            <a href="Lab01/index.html" class="block">
+                <div class="card bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-500">
+                    <h2 class="text-3xl font-bold mb-2 text-blue-400">Laboratorio 01</h2>
+                    <p class="text-gray-400 mb-4">Página de Presentación Personal</p>
+                    <span class="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Ver Proyecto</span>
+                </div>
+            </a>
+
+            <!-- Tarjeta Laboratorio 02 -->
+            <a href="Lab02/index.html" class="block">
+                <div class="card bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-500">
+                    <h2 class="text-3xl font-bold mb-2 text-blue-400">Laboratorio 02</h2>
+                    <p class="text-gray-400 mb-4">Maquetación Avanzada con CSS</p>
+                    <span class="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Ver Proyecto</span>
+                </div>
+            </a>
+
+            <!-- Tarjeta Laboratorio 03 -->
+            <a href="Lab03/index.html" class="block">
+                <div class="card bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-500">
+                    <h2 class="text-3xl font-bold mb-2 text-blue-400">Laboratorio 03</h2>
+                    <p class="text-gray-400 mb-4">Formulario de Registro y Etiquetas HTML</p>
+                    <span class="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Ver Proyecto</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+    
+    <footer class="text-center mt-12 border-t border-gray-700 pt-6">
+        <p class="text-gray-500">&copy; 2025 Jose Bermudez. Todos los derechos reservados.</p>
+        <p class="mt-1 text-sm text-gray-500">Repositorio: NachoCR94/II51_Laboratorios</p>
+    </footer>
+
+</body>
+</html>
