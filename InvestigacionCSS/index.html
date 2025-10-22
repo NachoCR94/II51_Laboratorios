@@ -3,52 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investigación CSS: Sombras y Transiciones</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Inicio de Sesión</title>
 </head>
-<body>
-
-    <header>
-        <h1 class="titulo-sombra">CSS: Sombras y Transiciones</h1>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+    
+    <header style="background-color: #333; color: white; padding: 20px; text-align: center;">
+        <h1 style="margin: 0;">Sistema de Gestión Académica</h1>
     </header>
 
-    <main>
-        <section class="section-sombras">
-            <h2>Ejemplo de Box-Shadow</h2>
-            <div class="caja-elevada">
-                Esta caja usa box-shadow para crear un efecto 3D y de elevación.
-            </div>
-        </section>
-
-        <section class="section-transiciones">
-            <h2>Ejemplo de Transiciones</h2>
+    <main style="display: flex; justify-content: center; align-items: center; height: 70vh;">
+        
+        <section style="background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 300px;">
+            <h2 style="text-align: center; color: #333; margin-bottom: 25px;">Iniciar Sesión</h2>
             
-            <div class="boton-animado">
-                Pasa el mouse aquí (Efecto Color y Escala)
-            </div>
+            <form style="display: flex; flex-direction: column;">
+                
+                <label for="email" style="margin-bottom: 5px; font-weight: bold; color: #555;">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required placeholder="ejemplo@dominio.com" style="padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
 
-            <div class="contenedor-barra">
-                <p>Pasa el mouse para animar la barra:</p>
-                <div class="barra-animada"></div>
-            </div>
+                <label for="password" style="margin-bottom: 5px; font-weight: bold; color: #555;">Contraseña:</label>
+                <input type="password" id="password" name="password" required minlength="6" placeholder="******" style="padding: 10px; margin-bottom: 30px; border: 1px solid #ccc; border-radius: 4px;">
+
+                <a href="estudiantes.html" style="text-decoration: none;">
+                    <button type="submit" style="background-color: #5cb85c; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%;">
+                        Ingresar
+                    </button>
+                </a>
+            </form>
         </section>
+        
     </main>
+
+    <footer style="background-color: #333; color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; width: 100%;">
+        <p style="margin: 0;">&copy; 2025 Sistema Académico</p>
+    </footer>
+
 </body>
 </html>
-        <ul class="intereses">
-          <li>Desarrollo web</li>
-          <li>Diseño gráfico</li>
-          <li>Inteligencia artificial</li>
-        </ul>
-      </section>
-
-      <footer>
-        <p>&copy; 2025 Jose Ignacio Bermudez</p>
-      </footer>
-    </body>
-    </html>
-
-            <div class="boton-animado">
-                Pasa el mouse aquí (Efecto Color y Escala)  
-
 
