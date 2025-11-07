@@ -15,11 +15,11 @@ body {
 /* SECCIÓN 1: ANIMACIONES (@keyframes) */
 /* -------------------------------------------------------------------------- */
 
-/* 1. Keyframes para movimiento horizontal */
+/* 1. Keyframes para movimiento horizontal (derecha a izquierda y viceversa) */
 @keyframes moverHorizontal {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(200px); } /* El valor 200px define la distancia del movimiento */
-    100% { transform: translateX(0); }
+    0% { transform: translateX(0); }       /* Posición inicial (izquierda) */
+    50% { transform: translateX(200px); }  /* Posición media (derecha) */
+    100% { transform: translateX(0); }     /* Posición final (vuelve a izquierda) */
 }
 
 /* 2. Keyframes para efecto "Latido" */
@@ -33,21 +33,22 @@ body {
     height: 50px;
     line-height: 50px;
     text-align: center;
-    background-color: #3498db;
+    background-color: #3498db; /* Color celeste/azul */
     color: white;
     border-radius: 5px;
     font-weight: bold;
     /* Aplicación de animaciones */
     animation: 
-        moverHorizontal 3s infinite alternate ease-in-out, /* Mover y rebotar */
-        latido 1s infinite; /* Pulsar */
+        /* 1. Aplica el movimiento horizontal */
+        moverHorizontal 3s infinite alternate ease-in-out, 
+        /* 2. Aplica el efecto de latido */
+        latido 1s infinite; 
 }
 
 /* Pausar animaciones al pasar el mouse */
 .caja-animada:hover {
     animation-play-state: paused;
 }
-
 
 /* -------------------------------------------------------------------------- */
 /* SECCIÓN 2: TRANSICIONES (transition) */
