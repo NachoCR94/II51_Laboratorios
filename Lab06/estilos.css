@@ -18,7 +18,7 @@ body {
 /* 1. Keyframes para movimiento horizontal */
 @keyframes moverHorizontal {
     0% { transform: translateX(0); }
-    50% { transform: translateX(200px); }
+    50% { transform: translateX(200px); } /* El valor 200px define la distancia del movimiento */
     100% { transform: translateX(0); }
 }
 
