@@ -4,9 +4,9 @@ const canvas = document.getElementById('miCanvas');
 const ctx = canvas.getContext('2d');
 
 // --- 1. Dibujo de Figuras Estáticas ---
-
+// Se mantiene la función de dibujo original
 function dibujarFigurasEstaticas() {
-    // A. Rectángulo (Área de rebote)
+    // A. Rectángulo (Área de rebote original, ahora solo es una figura)
     ctx.beginPath();
     ctx.fillStyle = '#3498db'; // Azul
     ctx.fillRect(50, 50, 100, 50); 
@@ -30,17 +30,15 @@ function dibujarFigurasEstaticas() {
 // --- 2. Animación del Punto que Rebota ---
 
 // Propiedades del punto (bolita verde)
-let x = 75; // Posición inicial X
-let y = 75; // Posición inicial Y
+let x = 75; // Posición inicial X (dentro del canvas)
+let y = 75; // Posición inicial Y (dentro del canvas)
 let radio = 8;
 let dx = 3; // Velocidad X
 let dy = 3; // Velocidad Y
 
-// Límites del área de rebote (el rectángulo azul)
-const areaX = 50;
-const areaY = 50;
-const areaW = 100;
-const areaH = 50;
+// NUEVOS LÍMITES: Usamos el tamaño completo del canvas
+const canvasW = canvas.width;  // 500
+const canvasH = canvas.height; // 300
 
 function dibujarPunto() {
     ctx.beginPath();
@@ -54,31 +52,24 @@ function actualizarPosicion() {
     x += dx;
     y += dy;
 
-    // Lógica de rebote: verifica si el punto toca los límites del rectángulo azul
+    // Lógica de rebote contra los bordes del CANVAS completo
     
-    // Rebote horizontal (paredes derecha e izquierda)
-    if (x + radio > areaX + areaW || x - radio < areaX) {
+    // Rebote horizontal (paredes derecha e izquierda del canvas)
+    if (x + radio > canvasW || x - radio < 0) {
         dx = -dx; 
-        // Corrección de posición para evitar que se quede pegado al borde
-        if (x + radio > areaX + areaW) x = areaX + areaW - radio;
-        if (x - radio < areaX) x = areaX + radio;
     }
 
-    // Rebote vertical (paredes superior e inferior)
-    if (y + radio > areaY + areaH || y - radio < areaY) {
+    // Rebote vertical (paredes superior e inferior del canvas)
+    if (y + radio > canvasH || y - radio < 0) {
         dy = -dy; 
-        // Corrección de posición
-        if (y + radio > areaY + areaH) y = areaY + areaH - radio;
-        if (y - radio < areaY) y = areaY + radio;
     }
 }
 
 function animar() {
-    // 1. Limpiar el área de rebote para borrar el rastro de la bolita
-    // Se limpia un poco más allá de los límites para asegurar que se borre el punto
-    ctx.clearRect(areaX - radio, areaY - radio, areaW + radio * 2, areaH + radio * 2);
+    // 1. Limpiar TODO el lienzo para borrar todos los rastros
+    ctx.clearRect(0, 0, canvasW, canvasH);
     
-    // 2. Redibujar las figuras estáticas (ya que clearRect borró el rectángulo azul)
+    // 2. Redibujar las figuras estáticas
     dibujarFigurasEstaticas();
     
     // 3. Actualizar la posición de la bolita
