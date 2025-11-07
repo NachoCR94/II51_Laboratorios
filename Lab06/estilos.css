@@ -11,15 +11,21 @@ body {
     border-radius: 8px;
 }
 
+/* Contenedor para el movimiento: le da espacio a la animación */
+.contenedor-animacion {
+    /* Define el ancho máximo del movimiento para que no se salga de la pantalla */
+    width: 300px; 
+    padding: 10px;
+}
+
 /* -------------------------------------------------------------------------- */
-/* SECCIÓN 1: ANIMACIONES (@keyframes) */
+/* SECCIÓN 1: ANIMACIONES (@keyframes) - MOVIMIENTO CORREGIDO */
 /* -------------------------------------------------------------------------- */
 
 /* 1. Keyframes para movimiento horizontal (derecha a izquierda y viceversa) */
 @keyframes moverHorizontal {
-    0% { transform: translateX(0); }       /* Posición inicial (izquierda) */
-    50% { transform: translateX(200px); }  /* Posición media (derecha) */
-    100% { transform: translateX(0); }     /* Posición final (vuelve a izquierda) */
+    0% { transform: translateX(0); }       /* Inicia en el borde izquierdo del contenedor */
+    100% { transform: translateX(200px); }  /* Se mueve 200px hacia la derecha */
 }
 
 /* 2. Keyframes para efecto "Latido" */
@@ -37,11 +43,14 @@ body {
     color: white;
     border-radius: 5px;
     font-weight: bold;
+    /* Asegura que la caja pueda moverse */
+    display: block; 
+    
     /* Aplicación de animaciones */
     animation: 
-        /* 1. Aplica el movimiento horizontal */
+        /* Aplica el movimiento horizontal */
         moverHorizontal 3s infinite alternate ease-in-out, 
-        /* 2. Aplica el efecto de latido */
+        /* Aplica el efecto de latido */
         latido 1s infinite; 
 }
 
@@ -50,8 +59,9 @@ body {
     animation-play-state: paused;
 }
 
+
 /* -------------------------------------------------------------------------- */
-/* SECCIÓN 2: TRANSICIONES (transition) */
+/* SECCIÓN 2: TRANSICIONES (transition) - Sin cambios */
 /* -------------------------------------------------------------------------- */
 
 .boton-transicion {
@@ -62,11 +72,9 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    /* Define que TODOS los cambios tarden 0.3s de forma suave */
     transition: all 0.3s ease; 
 }
 
-/* Estado :hover del Botón (cambia de color y posición) */
 .boton-transicion:hover {
     background-color: #2980b9; 
     transform: translateY(-3px) scale(1.05);
@@ -80,11 +88,9 @@ body {
     background-color: white;
     border: 3px solid #ccc;
     border-radius: 8px;
-    /* Define la transición para múltiples propiedades */
     transition: background-color 0.4s, border-color 0.4s, transform 0.4s ease;
 }
 
-/* Estado :hover de la Tarjeta (cambia de color y posición) */
 .tarjeta-transicion:hover {
     background-color: #ecf0f1; 
     border-color: #e67e22; 
