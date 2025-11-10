@@ -3,40 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab06: Animaciones, Transiciones y Canvas</title>
+    <title>Semana 7 - Animaciones, Transiciones y Canvas</title>
     <link rel="stylesheet" href="estilos.css"> 
 </head>
 <body style="padding: 20px;">
     <h1>Semana 7 – Animaciones, Transiciones y Canvas</h1>
 
     <section class="seccion">
-        <h2>SECCIÓN 1: Animaciones en CSS con @keyframes</h2>
-        <p>Movimiento horizontal y latido en el cuadro. Se pausan al pasar el mouse.</p>
+        <p>SECCIÓN 1</p>
+        <h3>Animaciones en CSS con @keyframes</h3>
         
-        <div class="contenedor-animacion">
+        <p>Este ejemplo muestra cómo ejecutar dos animaciones simultáneamente: un movimiento horizontal y un suave efecto de "latido". Al pasar el puntero sobre el cuadro, ambas animaciones se pausan mediante animation-play-state.</p>
+        
+        <div class="contenedor-animacion-ejemplo">
             <div class="caja-animada">Caja</div>
         </div>
-    </section>
-
-    <hr>
-
-    <section class="seccion">
-        <h2>SECCIÓN 2: Transiciones con la propiedad transition</h2>
-        <p>Pasa el mouse sobre el botón y la tarjeta para ver la transición suave.</p>
-        <button class="boton-transicion">Pásame el mouse</button>
-        <div class="tarjeta-transicion">
-            Se aplican transiciones en color, sombra y posición.
+        
+        <div class="puntos-clave-recuadro">
+            <p style="font-weight: bold; margin-bottom: 10px;">Puntos clave:</p>
+            <ul>
+                <li>La propiedad <code>animation</code> permite definir varias animaciones a la vez.</li>
+                <li><code>infinite</code> repite indefinidamente; <code>alternate</code> invierte el sentido en cada ciclo.</li>
+                <li>Se puede pausar con <code>animation-play-state: paused;</code>, por ejemplo al usar <code>:hover</code>.</li>
+            </ul>
         </div>
     </section>
 
     <hr>
 
     <section class="seccion">
-        <h2>SECCIÓN 3: Canvas: dibujo y animación simple</h2>
-        <p>Figuras estáticas y animación de un punto que rebota dentro del lienzo.</p>
-        <canvas id="miCanvas" width="500" height="300" style="border: 1px solid #ccc;"></canvas>
+        <h2>SECCIÓN 2</h2>
+        <h3>Transiciones con la propiedad transition</h3>
+        <p>Las transiciones reaccionan a un cambio de estado, como <code>:hover</code>, <code>:focus</code> o una clase agregada con JavaScript. En este ejemplo, el botón y la tarjeta cambian suavemente de color, sombra y posición.</p>
+        <button class="boton-transicion">Pásame el mouse</button>
+        <div class="tarjeta-transicion">
+            Pasa el mouse sobre esta tarjeta
+            <p style="font-size: 0.9em; margin-top: 5px;">Se aplican transiciones en transform, sombra y color de borde.</p>
+        </div>
+        
+        <div class="puntos-clave-recuadro" style="margin-top: 20px;">
+            <p style="font-weight: bold; margin-bottom: 10px;">Puntos clave:</p>
+            <ul>
+                <li>Define la transición en el estado base y el cambio de propiedades en el estado destino (por ejemplo, <code>:hover</code>).</li>
+                <li>Se pueden combinar varias propiedades: <code>transition: color .25s, transform .25s;</code>.</li>
+                <li>Si no hay cambio de valor, la transición no se percibe.</li>
+            </ul>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="seccion">
+        <h2>SECCIÓN 3</h2>
+        <h3>Canvas: dibujo y animación simple</h3>
+        <p>El siguiente ejemplo dibuja tres figuras básicas y anima un punto que rebota dentro del lienzo.</p>
+        <canvas id="miCanvas" width="500" height="300" style="border: 1px solid #ccc; display: block; margin: 20px auto;"></canvas>
+
+        <div class="puntos-clave-recuadro">
+            <p style="font-weight: bold; margin-bottom: 10px;">Puntos clave:</p>
+            <ul>
+                <li>Usa <code>beginPath()</code> antes de cada figura para separar trazos.</li>
+                <li>Define los estilos (<code>fillStyle</code>, <code>strokeStyle</code>, <code>lineWidth</code>) antes de dibujar.</li>
+                <li>Usa <code>requestAnimationFrame()</code> para animaciones suaves.</li>
+            </ul>
+        </div>
     </section>
     
-    <script src="script.js"></script>
+    <script src="script.js"></script> 
 </body>
 </html>
