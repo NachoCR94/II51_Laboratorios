@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Estudiantes</title>
+    <!-- Enlace al archivo CSS centralizado -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    
+    <header class="header-estudiantes">
+        <h1>Módulo Estudiantes</h1>
+    </header>
+
+    <nav class="navbar">
+        <a href="cursos.html">Cursos</a>
+        <a href="profesores.html">Profesores</a>
+        <a href="estudiantes.html" class="nav-active">Estudiantes</a>
+        <a href="../index.html" class="nav-logout">Cerrar Sesión</a>
+    </nav>
+
+    <main class="main-content">
+        <!-- Formulario de Búsqueda/Filtro Básico -->
+        <section class="section-form-filter">
+            <h2 class="text-center">Buscar y Filtrar Estudiantes</h2>
+            <form class="form-filter">
+                <div class="form-group">
+                    <label for="filtroID">ID o Nombre:</label>
+                    <input type="search" id="filtroID" name="filtroID" placeholder="Ej: 101 o Ana García" class="input-text">
+                </div>
+                <div class="form-group">
+                    <label for="filtroCarrera">Carrera:</label>
+                    <select id="filtroCarrera" name="filtroCarrera" class="input-text">
+                        <option value="">-- Seleccionar Carrera --</option>
+                        <option value="Civil">Ingeniería Civil</option>
+                        <option value="Comp">Ciencias de la Computación</option>
+                        <!-- Otras carreras -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn-primary-estudiantes">Buscar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Listado de Estudiantes (Tabla Simulada) -->
+        <section class="section-table">
+            <h2 class="section-title-estudiantes">Listado de Estudiantes</h2>
+            
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead class="thead-estudiantes">
+                        <tr>
+                            <th class="th-left">ID</th>
+                            <th class="th-left">Nombre Completo</th>
+                            <th class="th-left">Email</th>
+                            <th class="th-left">Carrera</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>Ana García Pérez</td>
+                            <td>ana.g@ejemplo.edu</td>
+                            <td>Ingeniería Civil</td>
+                        </tr>
+                        <tr class="row-alt">
+                            <td>102</td>
+                            <td>Luis Varga Soto</td>
+                            <td>l.varga@ejemplo.edu</td>
+                            <td>Ciencias de la Computación</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>Sofía Jiménez Cruz</td>
+                            <td>s.jimenez@ejemplo.edu</td>
+                            <td>Administración de Empresas</td>
+                        </tr>
+                        <!-- Más estudiantes simulados -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Sistema de Gestión Académica | Estudiantes</p>
+    </footer>
+
+</body>
+</html>

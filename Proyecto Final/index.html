@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Estudiantes</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    
+    <header class="header-registro">
+        <h1>Registro de Nuevos Estudiantes</h1>
+    </header>
+
+    <nav class="navbar">
+        <a href="cursos.html">Cursos</a>
+        <a href="profesores.html">Profesores</a>
+        <a href="estudiantes.html">Estudiantes</a>
+        <a href="../index.html" class="nav-logout">Cerrar Sesión</a>
+    </nav>
+
+    <main class="main-content flex justify-center items-start pt-10">
+        <section class="section-form-registro caja-elevada w-full max-w-lg">
+            <h2 class="text-center section-title-registro">Formulario de Matrícula</h2>
+            
+            <!-- Formulario Funcional con Validación HTML5 -->
+            <form action="estudiantes.html" method="get" class="form-registro">
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <!-- Validación: requerido -->
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre y apellidos" class="input-text">
+                </div>
+
+                <div class="form-group">
+                    <label for="emailRegistro">Correo Institucional:</label>
+                    <!-- Validación: type="email", requerido -->
+                    <input type="email" id="emailRegistro" name="emailRegistro" required placeholder="ejemplo@universidad.edu" class="input-text">
+                </div>
+
+                <div class="form-group">
+                    <label for="carrera">Carrera a Matricular:</label>
+                    <!-- Validación: requerido -->
+                    <select id="carrera" name="carrera" required class="input-text">
+                        <option value="">-- Seleccione una Carrera --</option>
+                        <option value="cs">Ciencias de la Computación</option>
+                        <option value="civil">Ingeniería Civil</option>
+                        <option value="admin">Administración de Empresas</option>
+                        <option value="arte">Artes y Diseño</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono (Patrón: XXXX-XXXX):</label>
+                    <!-- Validación: pattern, requerido -->
+                    <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{4}-[0-9]{4}" placeholder="Ej: 8888-8888" class="input-text">
+                    <small class="text-muted">Formato requerido: 1234-5678</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordRegistro">Contraseña (Mínimo 8 caracteres):</label>
+                    <!-- Validación: type="password", minlength -->
+                    <input type="password" id="passwordRegistro" name="passwordRegistro" required minlength="8" placeholder="Contraseña segura" class="input-text">
+                </div>
+
+                <div class="form-group-checkbox">
+                    <input type="checkbox" id="terminos" name="terminos" required>
+                    <label for="terminos">Acepto los <a href="#" class="text-blue-600 hover:underline">términos y condiciones</a></label>
+                </div>
+
+                <button type="submit" class="btn-submit-registro boton-animado">
+                    Completar Matrícula
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Sistema de Gestión Académica | Registro</p>
+    </footer>
+
+</body>
+</html>

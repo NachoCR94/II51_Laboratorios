@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Profesores</title>
+    <!-- Enlace al archivo CSS centralizado -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    
+    <header class="header-profesores">
+        <h1>Módulo Profesores</h1>
+    </header>
+
+    <nav class="navbar">
+        <a href="cursos.html">Cursos</a>
+        <a href="profesores.html" class="nav-active">Profesores</a>
+        <a href="estudiantes.html">Estudiantes</a>
+        <a href="../index.html" class="nav-logout">Cerrar Sesión</a>
+    </nav>
+
+    <main class="main-content">
+        <!-- Formulario de Búsqueda/Filtro Básico -->
+        <section class="section-form-filter">
+            <h2 class="text-center">Buscar y Filtrar Profesores</h2>
+            <form class="form-filter">
+                <div class="form-group">
+                    <label for="filtroNombre">Nombre o Título:</label>
+                    <input type="search" id="filtroNombre" name="filtroNombre" placeholder="Ej: Martín o Doctorado" class="input-text">
+                </div>
+                <div class="form-group">
+                    <label for="filtroDepto">Departamento:</label>
+                    <select id="filtroDepto" name="filtroDepto" class="input-text">
+                        <option value="">-- Seleccionar Departamento --</option>
+                        <option value="Tecnologia">Tecnología</option>
+                        <option value="Diseno">Artes y Diseño</option>
+                        <!-- Otros departamentos -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn-primary-profesores">Buscar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Listado de Profesores (Tabla Simulada) -->
+        <section class="section-table">
+            <h2 class="section-title-profesores">Listado de Profesores</h2>
+            
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead class="thead-profesores">
+                        <tr>
+                            <th class="th-left">ID</th>
+                            <th class="th-left">Nombre Completo</th>
+                            <th class="th-left">Título</th>
+                            <th class="th-left">Departamento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>301</td>
+                            <td>Dr. Martín López</td>
+                            <td>Doctorado en Informática</td>
+                            <td>Tecnología</td>
+                        </tr>
+                        <tr class="row-alt">
+                            <td>302</td>
+                            <td>Msc. Elena Torres</td>
+                            <td>Maestría en Diseño</td>
+                            <td>Artes y Diseño</td>
+                        </tr>
+                        <tr>
+                            <td>303</td>
+                            <td>Dra. Silvia Rojas</td>
+                            <td>Doctorado en Matemáticas</td>
+                            <td>Ciencias Básicas</td>
+                        </tr>
+                        <!-- Más profesores simulados -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Sistema de Gestión Académica | Profesores</p>
+    </footer>
+
+</body>
+</html>
