@@ -1,92 +1,336 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Estudiantes</title>
-    <!-- Enlace al archivo CSS centralizado -->
-    <link rel="stylesheet" href="../css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudiantes - Sistema UC</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22https://www.google.com/search?q=http://www.w3.org/2000/svg%2522 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
+
+<!-- CSS EMBEBIDO: Se utiliza el mismo bloque de estilos de index.html para consistencia -->
+<style>
+    /* -------------------------------------------------------------------
+       VARIABLES Y ESTILOS BASE (UC Palette)
+       ------------------------------------------------------------------- */
+    :root {
+        --uc-blue: #005DA4; /* Azul Oscuro Principal */
+        --uc-cyan: #00C0F3; /* Cian/Azul Claro de Acento */
+        --uc-cyan-light: #E0F7FF; /* Cian muy claro para fondos */
+        --uc-bg-light: #f7f9fb; /* Fondo muy claro de la página */
+        --uc-text-dark: #1f2937; /* Gris oscuro para texto general */
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--uc-bg-light); 
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--uc-text-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .app-container {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #ffffff;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 0.75rem;
+        border-top: 8px solid var(--uc-blue);
+        overflow: hidden; 
+        border: none !important;
+        width: 100%;
+    }
+    
+    /* -------------------------------------------------------------------
+       ENCABEZADO, NAVEGACIÓN Y TÍTULOS
+       ------------------------------------------------------------------- */
+    header {
+        background-color: var(--uc-blue);
+        padding: 1.5rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 4px solid var(--uc-cyan);
+    }
+    
+    .logo-container {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .logo-text {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+    }
+    
+    .slogan {
+        font-size: 1rem;
+        color: var(--uc-cyan-light); 
+        font-style: italic;
+        font-weight: 500;
+        margin-top: 0.25rem;
+    }
+    
+    nav {
+        background-color: #004b86; 
+        padding: 0.5rem 2.5rem;
+        border-bottom: 1px solid var(--uc-cyan);
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        display: block;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        border-radius: 0.3rem;
+    }
+    
+    nav ul li a:hover, nav ul li a.active {
+        background-color: var(--uc-cyan);
+        color: var(--uc-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    main {
+        padding: 2.5rem;
+        width: 100%;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--uc-blue);
+        border-bottom: 2px solid var(--uc-cyan-light);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .section-title {
+        font-size: 1.5rem; 
+        font-weight: 700; 
+        color: var(--uc-blue);
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.75rem; 
+        margin-bottom: 1.5rem; 
+    }
+    
+    /* -------------------------------------------------------------------
+       ESTILOS DE COMPONENTES (TABLA)
+       ------------------------------------------------------------------- */
+    .data-table-container {
+        overflow-x: auto;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .data-table {
+        width: 100%; /* Cambiado de min-width a width */
+        border-collapse: collapse;
+    }
+    
+    .data-table thead {
+        background-color: var(--uc-cyan-light);
+        border-bottom: 2px solid var(--uc-cyan);
+    }
+    
+    .data-table th {
+        padding: 1rem 1.5rem; /* Más padding para que se vea mejor */
+        text-align: left;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--uc-blue);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .data-table td {
+        padding: 1rem 1.5rem;
+        font-size: 0.875rem;
+        color: #1f2937;
+        white-space: nowrap;
+        border-bottom: 1px solid #f3f4f6;
+    }
+    
+    .data-table tbody tr:hover {
+        background-color: var(--uc-cyan-light);
+        transition: background-color 0.15s ease-in-out;
+    }
+    
+    /* Badge para estado de Matrícula */
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .badge.active {
+        background-color: #d1fae5; /* Verde muy claro */
+        color: #047857; /* Verde oscuro */
+        border: 1px solid #34d399;
+    }
+
+    .badge.inactive {
+        background-color: #fee2e2; /* Rojo muy claro */
+        color: #ef4444; /* Rojo oscuro */
+        border: 1px solid #fca5a5;
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVIDAD
+       ------------------------------------------------------------------- */
+    @media (max-width: 768px) {
+        header, nav {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        nav ul {
+            gap: 0.5rem;
+        }
+        nav ul li a {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+        }
+        main {
+            padding: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.5rem;
+        }
+        .data-table th, .data-table td {
+            padding: 0.75rem 1rem;
+        }
+    }
+</style>
+
+
 </head>
 <body>
-    
-    <header class="header-estudiantes">
-        <h1>Módulo Estudiantes</h1>
-    </header>
+<div class="app-container">
+<header>
+<div class="logo-container">
+<div class="logo-text">UC</div>
+<div class="slogan">Elegí, con el corazón</div>
+</div>
+</header>
 
-    <nav class="navbar">
-        <a href="cursos.html">Cursos</a>
-        <a href="profesores.html">Profesores</a>
-        <a href="estudiantes.html" class="nav-active">Estudiantes</a>
-        <a href="../index.html" class="nav-logout">Cerrar Sesión</a>
+    <nav>
+        <ul>
+            <li><a href="index.html">Login</a></li>
+            <li><a href="estudiantes.html" class="active">Estudiantes</a></li>
+            <li><a href="cursos.html">Cursos</a></li>
+            <li><a href="profesores.html">Profesores</a></li>
+        </ul>
     </nav>
 
-    <main class="main-content">
-        <!-- Formulario de Búsqueda/Filtro Básico -->
-        <section class="section-form-filter">
-            <h2 class="text-center">Buscar y Filtrar Estudiantes</h2>
-            <form class="form-filter">
-                <div class="form-group">
-                    <label for="filtroID">ID o Nombre:</label>
-                    <input type="search" id="filtroID" name="filtroID" placeholder="Ej: 101 o Ana García" class="input-text">
-                </div>
-                <div class="form-group">
-                    <label for="filtroCarrera">Carrera:</label>
-                    <select id="filtroCarrera" name="filtroCarrera" class="input-text">
-                        <option value="">-- Seleccionar Carrera --</option>
-                        <option value="Civil">Ingeniería Civil</option>
-                        <option value="Comp">Ciencias de la Computación</option>
-                        <!-- Otras carreras -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn-primary-estudiantes">Buscar</button>
-                </div>
-            </form>
-        </section>
+    <main>
+        <h1 class="page-title">Gestión de Estudiantes Matriculados</h1>
+        
+        <div style="margin-bottom: 2rem;">
+            <p style="font-size: 1rem; color: #6b7280;">
+                Listado completo de estudiantes activos en el sistema universitario, con detalles de contacto y estado de matrícula.
+            </p>
+        </div>
+        
+        <h2 class="section-title">Lista de Estudiantes</h2>
 
-        <!-- Listado de Estudiantes (Tabla Simulada) -->
-        <section class="section-table">
-            <h2 class="section-title-estudiantes">Listado de Estudiantes</h2>
-            
-            <div class="table-responsive">
-                <table class="data-table">
-                    <thead class="thead-estudiantes">
-                        <tr>
-                            <th class="th-left">ID</th>
-                            <th class="th-left">Nombre Completo</th>
-                            <th class="th-left">Email</th>
-                            <th class="th-left">Carrera</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>101</td>
-                            <td>Ana García Pérez</td>
-                            <td>ana.g@ejemplo.edu</td>
-                            <td>Ingeniería Civil</td>
-                        </tr>
-                        <tr class="row-alt">
-                            <td>102</td>
-                            <td>Luis Varga Soto</td>
-                            <td>l.varga@ejemplo.edu</td>
-                            <td>Ciencias de la Computación</td>
-                        </tr>
-                        <tr>
-                            <td>103</td>
-                            <td>Sofía Jiménez Cruz</td>
-                            <td>s.jimenez@ejemplo.edu</td>
-                            <td>Administración de Empresas</td>
-                        </tr>
-                        <!-- Más estudiantes simulados -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Completo</th>
+                        <th>Correo Electrónico</th>
+                        <th>Carrera</th>
+                        <th>Grado</th>
+                        <th>Matrícula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1001</td>
+                        <td>Ana Sofía Jiménez</td>
+                        <td>ana.jimenez@uc.ac.cr</td>
+                        <td>Ingeniería de Software</td>
+                        <td>Licenciatura</td>
+                        <td><span class="badge active">Activa</span></td>
+                    </tr>
+                    <tr>
+                        <td>1002</td>
+                        <td>Carlos Enrique Varela</td>
+                        <td>carlos.varela@uc.ac.cr</td>
+                        <td>Administración de Negocios</td>
+                        <td>Maestría</td>
+                        <td><span class="badge active">Activa</span></td>
+                    </tr>
+                    <tr>
+                        <td>1003</td>
+                        <td>Laura María Rojas</td>
+                        <td>laura.rojas@uc.ac.cr</td>
+                        <td>Diseño Gráfico</td>
+                        <td>Técnico</td>
+                        <td><span class="badge inactive">Inactiva</span></td>
+                    </tr>
+                    <tr>
+                        <td>1004</td>
+                        <td>Roberto José Alfaro</td>
+                        <td>roberto.alfaro@uc.ac.cr</td>
+                        <td>Contaduría Pública</td>
+                        <td>Licenciatura</td>
+                        <td><span class="badge active">Activa</span></td>
+                    </tr>
+                    <tr>
+                        <td>1005</td>
+                        <td>Valeria Nicole Castro</td>
+                        <td>valeria.castro@uc.ac.cr</td>
+                        <td>Psicología</td>
+                        <td>Bachillerato</td>
+                        <td><span class="badge active">Activa</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <p style="font-size: 0.9rem; color: #9ca3af;">
+                Total de Estudiantes Activos: 4 (de 5)
+            </p>
+        </div>
     </main>
 
-    <footer class="footer">
-        <p>Sistema de Gestión Académica | Estudiantes</p>
+    <footer>
+        <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
+            &copy; 2025 Universidad Central. Módulo de Estudiantes.
+        </p>
     </footer>
+</div>
+
 
 </body>
 </html>
+
