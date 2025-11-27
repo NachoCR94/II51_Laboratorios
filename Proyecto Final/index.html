@@ -1,345 +1,255 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Sistema UC</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22https://www.google.com/search?q=http://www.w3.org/2000/svg%2522 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
-<!-- CSS EMBEBIDO para garantizar el estilo -->
-<style>
-    /* -------------------------------------------------------------------
-       VARIABLES Y ESTILOS BASE (UC Palette)
-       ------------------------------------------------------------------- */
-    :root {
-        --uc-blue: #005DA4; /* Azul Oscuro Principal */
-        --uc-cyan: #00C0F3; /* Cian/Azul Claro de Acento */
-        --uc-cyan-light: #E0F7FF; /* Cian muy claro para fondos */
-        --uc-bg-light: #f7f9fb; /* Fondo muy claro de la página */
-        --uc-text-dark: #1f2937; /* Gris oscuro para texto general */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Principal - Acceso UC</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
     
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-    
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--uc-bg-light); 
-        min-height: 100vh;
-        padding: 20px;
-        color: var(--uc-text-dark);
-        /* Centrado de la tarjeta principal para la página de Login */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .app-container {
-        max-width: 1280px;
-        margin-left: auto;
-        margin-right: auto;
-        background-color: #ffffff;
-        /* Sombra de alta elevación (box-shadow) */
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        border-radius: 0.75rem;
-        border-top: 8px solid var(--uc-blue);
-        overflow: hidden; 
-        border: none !important;
-        width: 100%; /* Ajuste para que use el max-width */
-    }
-    
-    /* -------------------------------------------------------------------
-       ENCABEZADO, NAVEGACIÓN Y TÍTULOS
-       ------------------------------------------------------------------- */
-    header {
-        background-color: var(--uc-blue);
-        padding: 1.5rem 2.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-bottom: 4px solid var(--uc-cyan);
-    }
-    
-    .logo-container {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    
-    .logo-text {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: white;
-        line-height: 1;
-        /* text-shadow: Sombra suave para el logo */
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
-    }
-    
-    .slogan {
-        font-size: 1rem;
-        color: var(--uc-cyan-light); 
-        font-style: italic;
-        font-weight: 500;
-        margin-top: 0.25rem;
-    }
-    
-    nav {
-        background-color: #004b86; /* Un azul más oscuro */
-        padding: 0.5rem 2.5rem;
-        border-bottom: 1px solid var(--uc-cyan);
-    }
-    
-    nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-    }
-    
-    nav ul li a {
-        color: white;
-        text-decoration: none;
-        padding: 0.5rem 0.75rem;
-        display: block;
-        font-weight: 600;
-        transition: background-color 0.3s ease;
-        border-radius: 0.3rem;
-    }
-    
-    nav ul li a:hover, nav ul li a.active {
-        background-color: var(--uc-cyan);
-        color: var(--uc-blue);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    main {
-        padding: 2.5rem;
-    }
-    
-    .page-title {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--uc-blue);
-        border-bottom: 2px solid var(--uc-cyan-light);
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    .section-title {
-        font-size: 1.5rem; 
-        font-weight: 700; 
-        color: var(--uc-blue);
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 0.75rem; 
-        margin-bottom: 1.5rem; 
-    }
-    
-    /* -------------------------------------------------------------------
-       ESTILOS DE COMPONENTES (FORMULARIO, INPUTS, CARDS)
-       ------------------------------------------------------------------- */
-    .content-card {
-        padding: 2rem; 
-        border: 1px solid #f3f4f6;
-        border-radius: 0.5rem;
-        background-color: #ffffff;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
-        margin-bottom: 3rem; 
-    }
-    
-    /* ESTILO ESPECÍFICO PARA CARD DE LOGIN */
-    .login-card {
-        max-width: 400px;
-        margin: 0 auto;
-        margin-top: 3rem;
-        padding: 3rem 2.5rem;
-        border: 1px solid #e5e7eb;
-        border-radius: 1rem;
-        box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.15);
-        background-color: #ffffff;
-    }
+    <!-- CSS EMBEBIDO (Usando la paleta UC Azul) -->
+    <style>
+        /* -------------------------------------------------------------------
+           VARIABLES Y ESTILOS BASE (UC Palette)
+           ------------------------------------------------------------------- */
+        :root {
+            --uc-blue: #005DA4; 
+            --uc-cyan: #00C0F3; 
+            --uc-cyan-light: #E0F7FF; 
+            --uc-bg-light: #f7f9fb; 
+            --uc-text-dark: #1f2937; 
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--uc-bg-light); 
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--uc-text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .app-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 0.75rem;
+            border-top: 8px solid var(--uc-blue);
+            overflow: hidden; 
+            width: 100%;
+        }
+        
+        /* -------------------------------------------------------------------
+           ENCABEZADO Y NAVEGACIÓN
+           ------------------------------------------------------------------- */
+        header {
+            background-color: var(--uc-blue);
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 4px solid var(--uc-cyan);
+        }
+        
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+        }
+        
+        .slogan {
+            font-size: 1rem;
+            color: var(--uc-cyan-light); 
+            font-style: italic;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+        
+        nav {
+            background-color: #004b86; 
+            padding: 0.5rem 2.5rem;
+            border-bottom: 1px solid var(--uc-cyan);
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            display: block;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            border-radius: 0.3rem;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--uc-cyan);
+            color: var(--uc-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        main {
+            padding: 2.5rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+        }
+        
+        /* -------------------------------------------------------------------
+           LOGIN FORM
+           ------------------------------------------------------------------- */
+        .login-card {
+            max-width: 400px;
+            padding: 2.5rem;
+            background-color: #fcfdfe;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--uc-cyan);
+        }
 
-    .input-label {
-        display: block;
-        font-size: 0.875rem; 
-        font-weight: 600;
-        color: #374151;
-        margin-bottom: 0.25rem;
-    }
-    
-    .input-field {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #d1d5db;
-        border-radius: 0.5rem;
-        background-color: #f9fafb;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        transition: all 0.2s ease-in-out;
-    }
-    
-    .input-field:focus {
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        border-color: var(--uc-cyan);
-        box-shadow: 0 0 0 3px rgba(0, 192, 243, 0.5); 
-    }
-    
-    /* Botón Principal (Adaptado a submit-btn) */
-    .submit-btn {
-        width: 100%;
-        padding: 0.75rem 2rem;
-        background-color: var(--uc-blue);
-        color: white;
-        font-weight: 700;
-        border-radius: 0.5rem;
-        box-shadow: 0 10px 15px -3px rgba(0, 93, 164, 0.3);
-        transition: all 0.3s ease-in-out;
-        border: none;
-        cursor: pointer;
-    }
-    
-    .submit-btn:hover {
-        background-color: var(--uc-cyan);
-        transform: scale(1.01);
-    }
-    
-    .submit-btn:focus {
-        outline: none;
-        box-shadow: 0 0 0 4px rgba(0, 192, 243, 0.5); 
-    }
-    
-    /* -------------------------------------------------------------------
-       ESTILOS DE TABLA (Incluidos por consistencia)
-       ------------------------------------------------------------------- */
-    .data-table-container {
-        overflow-x: auto;
-        border-radius: 0.5rem;
-        border: 1px solid #e5e7eb;
-    }
-    
-    .data-table {
-        min-width: 100%;
-        border-collapse: collapse;
-    }
-    
-    .data-table thead {
-        background-color: var(--uc-cyan-light);
-        border-bottom: 1px solid var(--uc-cyan);
-    }
-    
-    .data-table th {
-        padding: 0.75rem 1.5rem;
-        text-align: left;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--uc-blue);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    
-    .data-table td {
-        padding: 1rem 1.5rem;
-        font-size: 0.875rem;
-        color: #1f2937;
-        white-space: nowrap;
-        border-bottom: 1px solid #f3f4f6;
-    }
-    
-    .data-table tbody tr:hover {
-        background-color: var(--uc-cyan-light);
-        transition: background-color 0.15s ease-in-out;
-    }
-    
-    /* Badge (Para Grados/Niveles) */
-    .badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.125rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        background-color: var(--uc-cyan-light);
-        color: var(--uc-blue);
-        border: 1px solid rgba(0, 192, 243, 0.5);
-    }
-    
-    /* -------------------------------------------------------------------
-       EFECTOS DE CSS SOLICITADOS (Incluidos por consistencia)
-       ------------------------------------------------------------------- */
-    .contenedor-barra {
-        width: 90%;
-        max-width: 400px;
-        margin: 20px auto;
-        text-align: center;
-    }
-    
-    .barra-animada {
-        width: 10%; 
-        height: 20px;
-        background-color: #2ecc71;
-        border-radius: 10px;
-        margin: 0 auto;
-        transition: width 1s ease;
-    }
-    
-    .contenedor-barra:hover .barra-animada {
-        width: 100%;
-        background-color: #27ae60;
-    }
-</style>
+        .login-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--uc-blue);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .login-subtitle {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
 
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--uc-text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--uc-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 192, 243, 0.3);
+            outline: none;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--uc-blue);
+            color: white;
+            font-weight: 700;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background-color: #004b86;
+        }
+
+        /* -------------------------------------------------------------------
+           RESPONSIVIDAD
+           ------------------------------------------------------------------- */
+        @media (max-width: 768px) {
+            header, nav, main {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            nav ul {
+                gap: 0.5rem;
+            }
+            nav ul li a {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+            .login-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="app-container">
-<header>
-<div class="logo-container">
-<div class="logo-text">UC</div>
-<div class="slogan">Elegí, con el corazón</div>
-</div>
-</header>
+    <div class="app-container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-text">UC</div>
+                <div class="slogan">Portal de Acceso Académico</div>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="main_portal.html" class="active">Login</a></li>
+                <!-- Asegúrese de que estos archivos existan en su carpeta -->
+                <li><a href="estudiantes.html">Estudiantes</a></li> 
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="profesores.html">Profesores</a></li>
+            </ul>
+        </nav>
 
-<nav>
-        <ul>
-            <li><a href="index.html" class="active">Login</a></li>
-            <li><a href="estudiantes.html">Estudiantes</a></li>
-            <li><a href="cursos.html">Cursos</a></li>
-            <li><a href="profesores.html">Profesores</a></li>
-        </ul>
-    </nav>
+        <main>
+            <div class="login-card">
+                <h2 class="login-title">Inicio de Sesión</h2>
+                <p class="login-subtitle">Ingrese sus credenciales para acceder al sistema.</p>
 
-    <main>
-        <div class="login-card">
-            <h2 class="section-title">Acceso al Sistema</h2>
-            
-            <form action="#">
-                <div style="margin-bottom: 1rem;">
-                    <label for="username" class="input-label">Usuario / ID</label>
-                    <input type="text" id="username" class="input-field" placeholder="Tu usuario o ID" required>
-                </div>
+                <form onsubmit="event.preventDefault(); alert('Acceso Concedido: ¡Bienvenido al sistema!');">
+                    <div class="form-group">
+                        <label for="username">Usuario (Carné)</label>
+                        <input type="text" id="username" placeholder="Ej: B12345" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Ingresar</button>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #9ca3af;">
+                        Este es un prototipo de simulación de acceso.
+                    </p>
+                </form>
+            </div>
+        </main>
 
-                <div style="margin-bottom: 2rem;">
-                    <label for="password" class="input-label">Contraseña</label>
-                    <input type="password" id="password" class="input-field" placeholder="********" required>
-                </div>
-                
-                <button type="submit" class="submit-btn">
-                    <svg style="width: 1.25rem; height: 1.25rem; display: inline-block; vertical-align: middle; margin-right: 0.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
-                    Iniciar Sesión
-                </button>
-                
-                <p style="text-align: center; font-size: 0.875rem; color: #6b7280; margin-top: 1.5rem;">
-                    ¿Olvidaste tu contraseña? <a href="#" style="color: var(--uc-blue); text-decoration: underline;">Recuperar</a>
-                </p>
-            </form>
-        </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Universidad Central. Módulo de Acceso.</p>
-    </footer>
-</div>
-
-
+        <footer>
+            <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
+                &copy; 2025 Universidad Central. Módulo de Acceso.
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
