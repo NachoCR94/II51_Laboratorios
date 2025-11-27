@@ -1,92 +1,307 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Profesores</title>
-    <!-- Enlace al archivo CSS centralizado -->
-    <link rel="stylesheet" href="../css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profesores - Sistema UC</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22https://www.google.com/search?q=http://www.w3.org/2000/svg%2522 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
+
+<!-- CSS EMBEBIDO: Se utiliza el mismo bloque de estilos para consistencia -->
+<style>
+    /* -------------------------------------------------------------------
+       VARIABLES Y ESTILOS BASE (UC Palette)
+       ------------------------------------------------------------------- */
+    :root {
+        --uc-blue: #005DA4; 
+        --uc-cyan: #00C0F3; 
+        --uc-cyan-light: #E0F7FF; 
+        --uc-bg-light: #f7f9fb; 
+        --uc-text-dark: #1f2937; 
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--uc-bg-light); 
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--uc-text-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .app-container {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #ffffff;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 0.75rem;
+        border-top: 8px solid var(--uc-blue);
+        overflow: hidden; 
+        border: none !important;
+        width: 100%;
+    }
+    
+    /* -------------------------------------------------------------------
+       ENCABEZADO, NAVEGACIÓN Y TÍTULOS
+       ------------------------------------------------------------------- */
+    header {
+        background-color: var(--uc-blue);
+        padding: 1.5rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 4px solid var(--uc-cyan);
+    }
+    
+    .logo-container {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .logo-text {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+    }
+    
+    .slogan {
+        font-size: 1rem;
+        color: var(--uc-cyan-light); 
+        font-style: italic;
+        font-weight: 500;
+        margin-top: 0.25rem;
+    }
+    
+    nav {
+        background-color: #004b86; 
+        padding: 0.5rem 2.5rem;
+        border-bottom: 1px solid var(--uc-cyan);
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        display: block;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        border-radius: 0.3rem;
+    }
+    
+    nav ul li a:hover, nav ul li a.active {
+        background-color: var(--uc-cyan);
+        color: var(--uc-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    main {
+        padding: 2.5rem;
+        width: 100%;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--uc-blue);
+        border-bottom: 2px solid var(--uc-cyan-light);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .section-title {
+        font-size: 1.5rem; 
+        font-weight: 700; 
+        color: var(--uc-blue);
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.75rem; 
+        margin-bottom: 1.5rem; 
+    }
+    
+    /* -------------------------------------------------------------------
+       ESTILOS DE COMPONENTES (TARJETAS DE PROFESOR)
+       ------------------------------------------------------------------- */
+    .professor-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+    
+    .professor-card {
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .profile-img {
+        width: 96px; 
+        height: 96px; 
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1rem;
+        border: 4px solid var(--uc-cyan);
+        box-shadow: 0 0 0 2px white, 0 0 0 3px var(--uc-blue);
+    }
+    
+    .name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--uc-blue);
+        margin-bottom: 0.25rem;
+    }
+    
+    .department {
+        font-size: 0.9rem;
+        color: #4b5563;
+        margin-bottom: 1rem;
+        font-style: italic;
+    }
+
+    .contact-info a {
+        color: var(--uc-cyan);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .contact-info a:hover {
+        color: var(--uc-blue);
+        text-decoration: underline;
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVIDAD
+       ------------------------------------------------------------------- */
+    @media (max-width: 768px) {
+        header, nav {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        nav ul {
+            gap: 0.5rem;
+        }
+        nav ul li a {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+        }
+        main {
+            padding: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+
 </head>
 <body>
-    
-    <header class="header-profesores">
-        <h1>Módulo Profesores</h1>
-    </header>
+<div class="app-container">
+<header>
+<div class="logo-container">
+<div class="logo-text">UC</div>
+<div class="slogan">Elegí, con el corazón</div>
+</div>
+</header>
 
-    <nav class="navbar">
-        <a href="cursos.html">Cursos</a>
-        <a href="profesores.html" class="nav-active">Profesores</a>
-        <a href="estudiantes.html">Estudiantes</a>
-        <a href="../index.html" class="nav-logout">Cerrar Sesión</a>
+    <nav>
+        <ul>
+            <li><a href="index.html">Login</a></li>
+            <li><a href="estudiantes.html">Estudiantes</a></li>
+            <li><a href="cursos.html">Cursos</a></li>
+            <li><a href="profesores.html" class="active">Profesores</a></li>
+        </ul>
     </nav>
 
-    <main class="main-content">
-        <!-- Formulario de Búsqueda/Filtro Básico -->
-        <section class="section-form-filter">
-            <h2 class="text-center">Buscar y Filtrar Profesores</h2>
-            <form class="form-filter">
-                <div class="form-group">
-                    <label for="filtroNombre">Nombre o Título:</label>
-                    <input type="search" id="filtroNombre" name="filtroNombre" placeholder="Ej: Martín o Doctorado" class="input-text">
-                </div>
-                <div class="form-group">
-                    <label for="filtroDepto">Departamento:</label>
-                    <select id="filtroDepto" name="filtroDepto" class="input-text">
-                        <option value="">-- Seleccionar Departamento --</option>
-                        <option value="Tecnologia">Tecnología</option>
-                        <option value="Diseno">Artes y Diseño</option>
-                        <!-- Otros departamentos -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn-primary-profesores">Buscar</button>
-                </div>
-            </form>
-        </section>
+    <main>
+        <h1 class="page-title">Directorio de Profesores</h1>
+        
+        <div style="margin-bottom: 2.5rem; text-align: center;">
+            <p style="font-size: 1rem; color: #6b7280;">
+                Conozca a los docentes que forman parte de nuestro equipo académico.
+            </p>
+        </div>
+        
+        <h2 class="section-title">Facultad de Ingeniería y Ciencias</h2>
 
-        <!-- Listado de Profesores (Tabla Simulada) -->
-        <section class="section-table">
-            <h2 class="section-title-profesores">Listado de Profesores</h2>
+        <div class="professor-grid">
             
-            <div class="table-responsive">
-                <table class="data-table">
-                    <thead class="thead-profesores">
-                        <tr>
-                            <th class="th-left">ID</th>
-                            <th class="th-left">Nombre Completo</th>
-                            <th class="th-left">Título</th>
-                            <th class="th-left">Departamento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>301</td>
-                            <td>Dr. Martín López</td>
-                            <td>Doctorado en Informática</td>
-                            <td>Tecnología</td>
-                        </tr>
-                        <tr class="row-alt">
-                            <td>302</td>
-                            <td>Msc. Elena Torres</td>
-                            <td>Maestría en Diseño</td>
-                            <td>Artes y Diseño</td>
-                        </tr>
-                        <tr>
-                            <td>303</td>
-                            <td>Dra. Silvia Rojas</td>
-                            <td>Doctorado en Matemáticas</td>
-                            <td>Ciencias Básicas</td>
-                        </tr>
-                        <!-- Más profesores simulados -->
-                    </tbody>
-                </table>
+            <!-- Profesor 1 -->
+            <div class="professor-card">
+                <!-- Usamos un placeholder genérico ya que no podemos incluir imágenes externas -->
+                <img src="https://placehold.co/96x96/005DA4/E0F7FF?text=JP" alt="Foto de Juan Pérez" class="profile-img">
+                <div class="name">Dr. Juan Pérez Soto</div>
+                <div class="department">Departamento de Ingeniería de Software</div>
+                <div class="contact-info">
+                    <a href="mailto:juan.perez@uc.ac.cr">juan.perez@uc.ac.cr</a>
+                </div>
             </div>
-        </section>
+
+            <!-- Profesor 2 -->
+            <div class="professor-card">
+                <img src="https://placehold.co/96x96/005DA4/E0F7FF?text=MS" alt="Foto de María Solís" class="profile-img">
+                <div class="name">M.Sc. María Solís Blanco</div>
+                <div class="department">Departamento de Bases de Datos</div>
+                <div class="contact-info">
+                    <a href="mailto:maria.solis@uc.ac.cr">maria.solis@uc.ac.cr</a>
+                </div>
+            </div>
+
+            <!-- Profesor 3 -->
+            <div class="professor-card">
+                <img src="https://placehold.co/96x96/005DA4/E0F7FF?text=RA" alt="Foto de Ricardo Araya" class="profile-img">
+                <div class="name">Lic. Ricardo Araya C.</div>
+                <div class="department">Departamento de Desarrollo Web</div>
+                <div class="contact-info">
+                    <a href="mailto:ricardo.araya@uc.ac.cr">ricardo.araya@uc.ac.cr</a>
+                </div>
+            </div>
+
+            <!-- Profesor 4 -->
+            <div class="professor-card">
+                <img src="https://placehold.co/96x96/005DA4/E0F7FF?text=EV" alt="Foto de Elena Vargas" class="profile-img">
+                <div class="name">Ing. Elena Vargas Z.</div>
+                <div class="department">Departamento de Seguridad Informática</div>
+                <div class="contact-info">
+                    <a href="mailto:elena.vargas@uc.ac.cr">elena.vargas@uc.ac.cr</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <p style="font-size: 0.9rem; color: #9ca3af;">
+                Total de Profesores en la lista: 4
+            </p>
+        </div>
     </main>
 
-    <footer class="footer">
-        <p>Sistema de Gestión Académica | Profesores</p>
+    <footer>
+        <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
+            &copy; 2025 Universidad Central. Módulo de Profesores.
+        </p>
     </footer>
+</div>
+
 
 </body>
 </html>
