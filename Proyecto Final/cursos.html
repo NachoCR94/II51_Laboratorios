@@ -1,1 +1,344 @@
+<!DOCTYPE html>
 
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursos - Sistema UC</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22https://www.google.com/search?q=http://www.w3.org/2000/svg%2522 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
+
+<!-- CSS EMBEBIDO: Se utiliza el mismo bloque de estilos para consistencia -->
+<style>
+    /* -------------------------------------------------------------------
+       VARIABLES Y ESTILOS BASE (UC Palette)
+       ------------------------------------------------------------------- */
+    :root {
+        --uc-blue: #005DA4; 
+        --uc-cyan: #00C0F3; 
+        --uc-cyan-light: #E0F7FF; 
+        --uc-bg-light: #f7f9fb; 
+        --uc-text-dark: #1f2937; 
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--uc-bg-light); 
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--uc-text-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .app-container {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #ffffff;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 0.75rem;
+        border-top: 8px solid var(--uc-blue);
+        overflow: hidden; 
+        border: none !important;
+        width: 100%;
+    }
+    
+    /* -------------------------------------------------------------------
+       ENCABEZADO, NAVEGACIÓN Y TÍTULOS
+       ------------------------------------------------------------------- */
+    header {
+        background-color: var(--uc-blue);
+        padding: 1.5rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 4px solid var(--uc-cyan);
+    }
+    
+    .logo-container {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .logo-text {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+    }
+    
+    .slogan {
+        font-size: 1rem;
+        color: var(--uc-cyan-light); 
+        font-style: italic;
+        font-weight: 500;
+        margin-top: 0.25rem;
+    }
+    
+    nav {
+        background-color: #004b86; 
+        padding: 0.5rem 2.5rem;
+        border-bottom: 1px solid var(--uc-cyan);
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        display: block;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        border-radius: 0.3rem;
+    }
+    
+    nav ul li a:hover, nav ul li a.active {
+        background-color: var(--uc-cyan);
+        color: var(--uc-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    main {
+        padding: 2.5rem;
+        width: 100%;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--uc-blue);
+        border-bottom: 2px solid var(--uc-cyan-light);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .section-title {
+        font-size: 1.5rem; 
+        font-weight: 700; 
+        color: var(--uc-blue);
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.75rem; 
+        margin-bottom: 1.5rem; 
+    }
+    
+    /* -------------------------------------------------------------------
+       ESTILOS DE COMPONENTES (TARJETAS DE CURSO)
+       ------------------------------------------------------------------- */
+    .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    
+    .course-card {
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card-header {
+        background-color: var(--uc-blue);
+        color: white;
+        padding: 1.5rem;
+        border-bottom: 4px solid var(--uc-cyan);
+    }
+    
+    .card-header h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed #f3f4f6;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #4b5563;
+    }
+
+    .info-value {
+        font-weight: 500;
+        color: var(--uc-blue);
+    }
+    
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .badge.mandatory {
+        background-color: #fffbeb; 
+        color: #b45309; 
+        border: 1px solid #fcd34d;
+    }
+
+    .badge.elective {
+        background-color: #eef2ff; 
+        color: #4338ca; 
+        border: 1px solid #a5b4fc;
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVIDAD
+       ------------------------------------------------------------------- */
+    @media (max-width: 768px) {
+        header, nav {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        nav ul {
+            gap: 0.5rem;
+        }
+        nav ul li a {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+        }
+        main {
+            padding: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+
+</head>
+<body>
+<div class="app-container">
+<header>
+<div class="logo-container">
+<div class="logo-text">UC</div>
+<div class="slogan">Elegí, con el corazón</div>
+</div>
+</header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Login</a></li>
+            <li><a href="estudiantes.html">Estudiantes</a></li>
+            <li><a href="cursos.html" class="active">Cursos</a></li>
+            <li><a href="profesores.html">Profesores</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 class="page-title">Catálogo de Cursos Activos</h1>
+        
+        <div style="margin-bottom: 2.5rem; text-align: center;">
+            <p style="font-size: 1rem; color: #6b7280;">
+                Explore la oferta académica para el próximo cuatrimestre, incluyendo detalles de créditos, horario y tipo de curso.
+            </p>
+        </div>
+        
+        <h2 class="section-title">Cursos de Ingeniería y Tecnología</h2>
+
+        <div class="course-grid">
+            
+            <!-- Curso 1 -->
+            <div class="course-card">
+                <div class="card-header">
+                    <h3>II-51: Programación Internet</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-item"><span class="info-label">Código</span><span class="info-value">II-51</span></div>
+                    <div class="info-item"><span class="info-label">Créditos</span><span class="info-value">4</span></div>
+                    <div class="info-item"><span class="info-label">Horario</span><span class="info-value">Lun/Mié: 6pm - 8pm</span></div>
+                    <div class="info-item" style="border-bottom: none;"><span class="info-label">Tipo</span><span class="badge mandatory">Obligatorio</span></div>
+                </div>
+            </div>
+
+            <!-- Curso 2 -->
+            <div class="course-card">
+                <div class="card-header" style="background-color: #004b86;">
+                    <h3>II-52: Bases de Datos Avanzadas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-item"><span class="info-label">Código</span><span class="info-value">II-52</span></div>
+                    <div class="info-item"><span class="info-label">Créditos</span><span class="info-value">3</span></div>
+                    <div class="info-item"><span class="info-label">Horario</span><span class="info-value">Mar/Jue: 4pm - 6pm</span></div>
+                    <div class="info-item" style="border-bottom: none;"><span class="info-label">Tipo</span><span class="badge mandatory">Obligatorio</span></div>
+                </div>
+            </div>
+
+            <!-- Curso 3 -->
+            <div class="course-card">
+                <div class="card-header" style="background-color: #008639;">
+                    <h3>II-90: Desarrollo Móvil con React Native</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-item"><span class="info-label">Código</span><span class="info-value">II-90</span></div>
+                    <div class="info-item"><span class="info-label">Créditos</span><span class="info-value">3</span></div>
+                    <div class="info-item"><span class="info-label">Horario</span><span class="info-value">Sábados: 9am - 12pm</span></div>
+                    <div class="info-item" style="border-bottom: none;"><span class="info-label">Tipo</span><span class="badge elective">Electivo</span></div>
+                </div>
+            </div>
+
+            <!-- Curso 4 -->
+            <div class="course-card">
+                <div class="card-header" style="background-color: #7b0086;">
+                    <h3>II-65: Seguridad Web</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-item"><span class="info-label">Código</span><span class="info-value">II-65</span></div>
+                    <div class="info-item"><span class="info-label">Créditos</span><span class="info-value">4</span></div>
+                    <div class="info-item"><span class="info-label">Horario</span><span class="info-value">Mié/Vie: 8pm - 10pm</span></div>
+                    <div class="info-item" style="border-bottom: none;"><span class="info-label">Tipo</span><span class="badge mandatory">Obligatorio</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <p style="font-size: 0.9rem; color: #9ca3af;">
+                Total de Cursos Activos: 4
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
+            &copy; 2025 Universidad Central. Módulo de Cursos.
+        </p>
+    </footer>
+</div>
+
+
+</body>
+</html>
