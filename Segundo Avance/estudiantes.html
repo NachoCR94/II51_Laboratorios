@@ -1,336 +1,298 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estudiantes - Sistema UC</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22https://www.google.com/search?q=http://www.w3.org/2000/svg%2522 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
-
-<!-- CSS EMBEBIDO: Se utiliza el mismo bloque de estilos de index.html para consistencia -->
-<style>
-    /* -------------------------------------------------------------------
-       VARIABLES Y ESTILOS BASE (UC Palette)
-       ------------------------------------------------------------------- */
-    :root {
-        --uc-blue: #005DA4; /* Azul Oscuro Principal */
-        --uc-cyan: #00C0F3; /* Cian/Azul Claro de Acento */
-        --uc-cyan-light: #E0F7FF; /* Cian muy claro para fondos */
-        --uc-bg-light: #f7f9fb; /* Fondo muy claro de la página */
-        --uc-text-dark: #1f2937; /* Gris oscuro para texto general */
-    }
-    
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-    
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--uc-bg-light); 
-        min-height: 100vh;
-        padding: 20px;
-        color: var(--uc-text-dark);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .app-container {
-        max-width: 1280px;
-        margin-left: auto;
-        margin-right: auto;
-        background-color: #ffffff;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        border-radius: 0.75rem;
-        border-top: 8px solid var(--uc-blue);
-        overflow: hidden; 
-        border: none !important;
-        width: 100%;
-    }
-    
-    /* -------------------------------------------------------------------
-       ENCABEZADO, NAVEGACIÓN Y TÍTULOS
-       ------------------------------------------------------------------- */
-    header {
-        background-color: var(--uc-blue);
-        padding: 1.5rem 2.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-bottom: 4px solid var(--uc-cyan);
-    }
-    
-    .logo-container {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    
-    .logo-text {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: white;
-        line-height: 1;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
-    }
-    
-    .slogan {
-        font-size: 1rem;
-        color: var(--uc-cyan-light); 
-        font-style: italic;
-        font-weight: 500;
-        margin-top: 0.25rem;
-    }
-    
-    nav {
-        background-color: #004b86; 
-        padding: 0.5rem 2.5rem;
-        border-bottom: 1px solid var(--uc-cyan);
-    }
-    
-    nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-    }
-    
-    nav ul li a {
-        color: white;
-        text-decoration: none;
-        padding: 0.5rem 0.75rem;
-        display: block;
-        font-weight: 600;
-        transition: background-color 0.3s ease;
-        border-radius: 0.3rem;
-    }
-    
-    nav ul li a:hover, nav ul li a.active {
-        background-color: var(--uc-cyan);
-        color: var(--uc-blue);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    main {
-        padding: 2.5rem;
-        width: 100%;
-    }
-    
-    .page-title {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--uc-blue);
-        border-bottom: 2px solid var(--uc-cyan-light);
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-        text-align: center;
-    }
-    
-    .section-title {
-        font-size: 1.5rem; 
-        font-weight: 700; 
-        color: var(--uc-blue);
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 0.75rem; 
-        margin-bottom: 1.5rem; 
-    }
-    
-    /* -------------------------------------------------------------------
-       ESTILOS DE COMPONENTES (TABLA)
-       ------------------------------------------------------------------- */
-    .data-table-container {
-        overflow-x: auto;
-        border-radius: 0.5rem;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .data-table {
-        width: 100%; /* Cambiado de min-width a width */
-        border-collapse: collapse;
-    }
-    
-    .data-table thead {
-        background-color: var(--uc-cyan-light);
-        border-bottom: 2px solid var(--uc-cyan);
-    }
-    
-    .data-table th {
-        padding: 1rem 1.5rem; /* Más padding para que se vea mejor */
-        text-align: left;
-        font-size: 0.875rem;
-        font-weight: 700;
-        color: var(--uc-blue);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    
-    .data-table td {
-        padding: 1rem 1.5rem;
-        font-size: 0.875rem;
-        color: #1f2937;
-        white-space: nowrap;
-        border-bottom: 1px solid #f3f4f6;
-    }
-    
-    .data-table tbody tr:hover {
-        background-color: var(--uc-cyan-light);
-        transition: background-color 0.15s ease-in-out;
-    }
-    
-    /* Badge para estado de Matrícula */
-    .badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        line-height: 1;
-    }
-
-    .badge.active {
-        background-color: #d1fae5; /* Verde muy claro */
-        color: #047857; /* Verde oscuro */
-        border: 1px solid #34d399;
-    }
-
-    .badge.inactive {
-        background-color: #fee2e2; /* Rojo muy claro */
-        color: #ef4444; /* Rojo oscuro */
-        border: 1px solid #fca5a5;
-    }
-
-    /* -------------------------------------------------------------------
-       RESPONSIVIDAD
-       ------------------------------------------------------------------- */
-    @media (max-width: 768px) {
-        header, nav {
-            padding-left: 1rem;
-            padding-right: 1rem;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Estudiantes - Proyecto Final</title>
+    <!-- Carga de Tailwind CSS para un diseño moderno y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Usamos la fuente Inter para un look moderno */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
         }
-        nav ul {
-            gap: 0.5rem;
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1f6feb',
+                        'success-green': '#3fb950',
+                        'danger-red': '#f85149',
+                    }
+                }
+            }
         }
-        nav ul li a {
-            padding: 0.5rem;
-            font-size: 0.875rem;
-        }
-        main {
-            padding: 1.5rem;
-        }
-        .page-title {
-            font-size: 1.5rem;
-        }
-        .data-table th, .data-table td {
-            padding: 0.75rem 1rem;
-        }
-    }
-</style>
-
-
+    </script>
 </head>
-<body>
-<div class="app-container">
-<header>
-<div class="logo-container">
-<div class="logo-text">UC</div>
-<div class="slogan">Elegí, con el corazón</div>
-</div>
-</header>
+<body class="min-h-screen">
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Login</a></li>
-            <li><a href="estudiantes.html" class="active">Estudiantes</a></li>
-            <li><a href="cursos.html">Cursos</a></li>
-            <li><a href="profesores.html">Profesores</a></li>
-        </ul>
-    </nav>
+    <!-- Contenedor Principal (Centrado y con Padding) -->
+    <div class="container mx-auto p-4 sm:p-8">
 
-    <main>
-        <h1 class="page-title">Gestión de Estudiantes Matriculados</h1>
-        
-        <div style="margin-bottom: 2rem;">
-            <p style="font-size: 1rem; color: #6b7280;">
-                Listado completo de estudiantes activos en el sistema universitario, con detalles de contacto y estado de matrícula.
+        <!-- Encabezado de la Página -->
+        <header class="mb-8">
+            <h1 class="text-4xl font-extrabold text-gray-800 border-b-4 border-primary-blue pb-2">
+                Gestión de Estudiantes
+            </h1>
+            <p class="mt-2 text-gray-600 text-lg">
+                Módulo para agregar, ver, actualizar y eliminar registros de alumnos de la universidad.
             </p>
+        </header>
+
+        <!-- Sección de Control y Búsqueda -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
+            <button id="openModalBtn" onclick="openModal()"
+                class="w-full sm:w-auto px-6 py-2 bg-primary-blue text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                + Agregar Nuevo Estudiante
+            </button>
+            <div class="w-full sm:w-1/3">
+                <input type="text" placeholder="Buscar por Nombre o ID..."
+                    class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue shadow-sm">
+            </div>
         </div>
+
+        <!-- Tabla de Estudiantes (READ - Leer) -->
+        <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                ID
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nombre Completo
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Email
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Carrera
+                            </th>
+                            <th scope="col" class="relative px-6 py-3">
+                                <span class="sr-only">Acciones</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList" class="bg-white divide-y divide-gray-200">
+                        <!-- Fila de Ejemplo 1 -->
+                        <tr class="hover:bg-blue-50 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2023001</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Ana María López</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">ana.lopez@uni.edu</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Ingeniería de Sistemas</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button onclick="openModal(2023001)" class="text-primary-blue hover:text-blue-800 transition duration-150 mr-2">
+                                    Editar
+                                </button>
+                                <button onclick="deleteStudent(2023001)" class="text-danger-red hover:text-red-700 transition duration-150">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Fila de Ejemplo 2 -->
+                        <tr class="hover:bg-blue-50 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2022045</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">José Daniel Bermúdez</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">jose.bermudez@uni.edu</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Administración</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button onclick="openModal(2022045)" class="text-primary-blue hover:text-blue-800 transition duration-150 mr-2">
+                                    Editar
+                                </button>
+                                <button onclick="deleteStudent(2022045)" class="text-danger-red hover:text-red-700 transition duration-150">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Aquí se cargarán los registros dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Mensaje de sin datos -->
+            <div id="noDataMessage" class="hidden text-center p-8 text-gray-500">
+                Aún no hay estudiantes registrados. ¡Usa el botón "Agregar Nuevo Estudiante" para empezar!
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- MODAL para Formulario (CREATE/UPDATE - Crear/Actualizar) -->
+    <div id="studentModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 hidden transition-opacity duration-300 ease-out"
+         aria-labelledby="modal-title" role="dialog" aria-modal="true">
         
-        <h2 class="section-title">Lista de Estudiantes</h2>
-
-        <div class="data-table-container">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre Completo</th>
-                        <th>Correo Electrónico</th>
-                        <th>Carrera</th>
-                        <th>Grado</th>
-                        <th>Matrícula</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1001</td>
-                        <td>Ana Sofía Jiménez</td>
-                        <td>ana.jimenez@uc.ac.cr</td>
-                        <td>Ingeniería de Software</td>
-                        <td>Licenciatura</td>
-                        <td><span class="badge active">Activa</span></td>
-                    </tr>
-                    <tr>
-                        <td>1002</td>
-                        <td>Carlos Enrique Varela</td>
-                        <td>carlos.varela@uc.ac.cr</td>
-                        <td>Administración de Negocios</td>
-                        <td>Maestría</td>
-                        <td><span class="badge active">Activa</span></td>
-                    </tr>
-                    <tr>
-                        <td>1003</td>
-                        <td>Laura María Rojas</td>
-                        <td>laura.rojas@uc.ac.cr</td>
-                        <td>Diseño Gráfico</td>
-                        <td>Técnico</td>
-                        <td><span class="badge inactive">Inactiva</span></td>
-                    </tr>
-                    <tr>
-                        <td>1004</td>
-                        <td>Roberto José Alfaro</td>
-                        <td>roberto.alfaro@uc.ac.cr</td>
-                        <td>Contaduría Pública</td>
-                        <td>Licenciatura</td>
-                        <td><span class="badge active">Activa</span></td>
-                    </tr>
-                    <tr>
-                        <td>1005</td>
-                        <td>Valeria Nicole Castro</td>
-                        <td>valeria.castro@uc.ac.cr</td>
-                        <td>Psicología</td>
-                        <td>Bachillerato</td>
-                        <td><span class="badge active">Activa</span></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Contenedor del Modal -->
+        <div class="flex items-center justify-center min-h-screen p-4">
+            
+            <!-- Panel del Modal -->
+            <div id="modalPanel" class="bg-white rounded-xl shadow-2xl w-full max-w-lg transform transition-all duration-300 ease-in-out scale-95 opacity-0">
+                <div class="p-6">
+                    <!-- Título del Modal -->
+                    <h3 id="modalTitle" class="text-2xl font-bold text-gray-900 mb-4">
+                        Registrar Nuevo Estudiante
+                    </h3>
+                    
+                    <!-- Formulario del Estudiante -->
+                    <form id="studentForm">
+                        
+                        <div class="mb-4">
+                            <label for="studentId" class="block text-sm font-medium text-gray-700">ID del Estudiante</label>
+                            <input type="text" id="studentId" name="studentId" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary-blue focus:border-primary-blue"
+                                placeholder="Ej: 2024001">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="studentName" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                            <input type="text" id="studentName" name="studentName" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary-blue focus:border-primary-blue"
+                                placeholder="Ej: Juan Pérez">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="studentEmail" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                            <input type="email" id="studentEmail" name="studentEmail" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary-blue focus:border-primary-blue"
+                                placeholder="Ej: juan.perez@uni.edu">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="studentCareer" class="block text-sm font-medium text-gray-700">Carrera</label>
+                            <select id="studentCareer" name="studentCareer" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary-blue focus:border-primary-blue">
+                                <option value="">Seleccione una carrera</option>
+                                <option value="Sistemas">Ingeniería de Sistemas</option>
+                                <option value="Admin">Administración de Empresas</option>
+                                <option value="Contaduria">Contaduría Pública</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Botones del Formulario -->
+                        <div class="flex justify-end space-x-3">
+                            <button type="button" onclick="closeModal()"
+                                class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100 transition duration-150">
+                                Cancelar
+                            </button>
+                            <button type="submit" id="saveBtn"
+                                class="px-4 py-2 bg-success-green text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300">
+                                Guardar Estudiante
+                            </button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+            
         </div>
+    </div>
+    
+    <script>
+        // --- Lógica básica del Modal (Sin Firebase aún) ---
 
-        <div style="margin-top: 3rem; text-align: center;">
-            <p style="font-size: 0.9rem; color: #9ca3af;">
-                Total de Estudiantes Activos: 4 (de 5)
-            </p>
-        </div>
-    </main>
+        const modal = document.getElementById('studentModal');
+        const modalPanel = document.getElementById('modalPanel');
+        const modalTitle = document.getElementById('modalTitle');
+        const saveBtn = document.getElementById('saveBtn');
+        const form = document.getElementById('studentForm');
 
-    <footer>
-        <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
-            &copy; 2025 Universidad Central. Módulo de Estudiantes.
-        </p>
-    </footer>
-</div>
+        /**
+         * Abre el modal para Crear o Editar un estudiante.
+         * @param {number | null} studentId - El ID del estudiante a editar, o null para crear uno nuevo.
+         */
+        function openModal(studentId = null) {
+            // 1. Limpia el formulario
+            form.reset(); 
+            
+            if (studentId) {
+                // Modo Edición
+                modalTitle.textContent = 'Editar Estudiante ID: ' + studentId;
+                saveBtn.textContent = 'Actualizar Registro';
+                // Aquí iría la lógica para CARGAR los datos del estudiante 
+                // para que el usuario pueda editarlos (por ahora, solo cambiamos el texto)
+            } else {
+                // Modo Creación
+                modalTitle.textContent = 'Registrar Nuevo Estudiante';
+                saveBtn.textContent = 'Guardar Estudiante';
+            }
+            
+            // 2. Muestra el modal
+            modal.classList.remove('hidden', 'opacity-0');
+            modalPanel.classList.remove('scale-95', 'opacity-0');
+            modalPanel.classList.add('scale-100', 'opacity-100');
+        }
 
+        /**
+         * Cierra el modal.
+         */
+        function closeModal() {
+            // Oculta el modal con una transición
+            modalPanel.classList.remove('scale-100', 'opacity-100');
+            modalPanel.classList.add('scale-95', 'opacity-0');
+            
+            // Oculta el fondo después de la transición (50ms para la demo)
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 50); 
+        }
 
+        /**
+         * Manejador de envío del formulario.
+         */
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Aquí iría la lógica para GUARDAR o ACTUALIZAR los datos en Firestore
+            
+            const studentData = {
+                id: document.getElementById('studentId').value,
+                name: document.getElementById('studentName').value,
+                email: document.getElementById('studentEmail').value,
+                career: document.getElementById('studentCareer').value
+            };
+            
+            console.log('Datos a guardar/actualizar:', studentData);
+            
+            // Simulación de guardado exitoso
+            alertMessage('Estudiante guardado/actualizado con éxito!', 'success-green');
+            closeModal();
+            // Luego, recargarías la tabla con los datos de Firestore
+        });
+        
+        /**
+         * Simulación de función de Eliminar.
+         * En un app real, esto abriría un modal de confirmación y luego haría la llamada a Firestore.
+         */
+        function deleteStudent(id) {
+            console.log('Intento de eliminar estudiante con ID:', id);
+            // IMPORTANTE: NO usar alert(). Usaremos un mensaje en la interfaz.
+            alertMessage(`Estudiante ID ${id} eliminado. (Simulación)`, 'danger-red');
+        }
+        
+        // Función para mostrar un mensaje temporal en la UI (Reemplazo de alert())
+        function alertMessage(message, color) {
+            let msgBox = document.getElementById('customAlert');
+            if (!msgBox) {
+                msgBox = document.createElement('div');
+                msgBox.id = 'customAlert';
+                msgBox.className = 'fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white font-semibold transform translate-y-[-100%] transition-transform duration-500 ease-out z-[9999]';
+                document.body.appendChild(msgBox);
+            }
+            msgBox.style.backgroundColor = color;
+            msgBox.textContent = message;
+            msgBox.classList.remove('translate-y-[-100%]');
+            msgBox.classList.add('translate-y-0');
+
+            setTimeout(() => {
+                msgBox.classList.remove('translate-y-0');
+                msgBox.classList.add('translate-y-[-100%]');
+            }, 3000);
+        }
+        
+    </script>
 </body>
 </html>
 
