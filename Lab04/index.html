@@ -3,54 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión</title>
-</head>
-<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <title>Portal Principal - Acceso UC</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
     
-    <header style="background-color: #010101; color: white; padding: 20px; text-align: center;">
-        <h1 style="margin: 0;">Sistema de Gestión Académica</h1>
-    </header>
-
-    <main style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+    <!-- CSS EMBEBIDO (Usando la paleta UC Azul) -->
+    <style>
+        /* -------------------------------------------------------------------
+           VARIABLES Y ESTILOS BASE (UC Palette)
+           ------------------------------------------------------------------- */
+        :root {
+            --uc-blue: #005DA4; 
+            --uc-cyan: #00C0F3; 
+            --uc-cyan-light: #E0F7FF; 
+            --uc-bg-light: #f7f9fb; 
+            --uc-text-dark: #1f2937; 
+        }
         
-        <section style="background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 300px;">
-            <h2 style="text-align: center; color: #333; margin-bottom: 25px;">Iniciar Sesión</h2>
-            
-            <form style="display: flex; flex-direction: column;">
-                
-                <label for="email" style="margin-bottom: 5px; font-weight: bold; color: #555;">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" required placeholder="ejemplo@dominio.com" style="padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
-
-                <label for="password" style="margin-bottom: 5px; font-weight: bold; color: #555;">Contraseña:</label>
-                <input type="password" id="password" name="password" required minlength="6" placeholder="******" style="padding: 10px; margin-bottom: 30px; border: 1px solid #ccc; border-radius: 4px;">
-
-                <a href="http://127.0.0.1:3000/InvestigacionCSS/cursos.html?serverWindowId=6aa02745-c653-4471-baf0-8301e8aeb869" style="text-decoration: none;">
-                    <button type="submit" style="background-color: #010401; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%;">
-                        Ingresar
-                    </button>
-                </a>
-            </form>
-        </section>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         
-    </main>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--uc-bg-light); 
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--uc-text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .app-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 0.75rem;
+            border-top: 8px solid var(--uc-blue);
+            overflow: hidden; 
+            width: 100%;
+        }
+        
+        /* -------------------------------------------------------------------
+           ENCABEZADO Y NAVEGACIÓN
+           ------------------------------------------------------------------- */
+        header {
+            background-color: var(--uc-blue);
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 4px solid var(--uc-cyan);
+        }
+        
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+        }
+        
+        .slogan {
+            font-size: 1rem;
+            color: var(--uc-cyan-light); 
+            font-style: italic;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+        
+        nav {
+            background-color: #004b86; 
+            padding: 0.5rem 2.5rem;
+            border-bottom: 1px solid var(--uc-cyan);
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            display: block;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            border-radius: 0.3rem;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--uc-cyan);
+            color: var(--uc-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        main {
+            padding: 2.5rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+        }
+        
+        /* -------------------------------------------------------------------
+           LOGIN FORM
+           ------------------------------------------------------------------- */
+        .login-card {
+            max-width: 400px;
+            padding: 2.5rem;
+            background-color: #fcfdfe;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--uc-cyan);
+        }
 
-    <div style="text-align: center; padding-top: 50px; margin-bottom: 70px;">
-        <h3 style="color: #333;">Matricúlate ya!</h3>
-        <iframe 
-            width="360" 
-            height="295" 
-            src="https://www.youtube.com/embed/Q8cgWE0lB8k?si=lu-k2w0CFB_eoONR&amp;start=10" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen
-        ></iframe>
+        .login-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--uc-blue);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .login-subtitle {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--uc-text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--uc-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 192, 243, 0.3);
+            outline: none;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--uc-blue);
+            color: white;
+            font-weight: 700;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background-color: #004b86;
+        }
+
+        /* -------------------------------------------------------------------
+           RESPONSIVIDAD
+           ------------------------------------------------------------------- */
+        @media (max-width: 768px) {
+            header, nav, main {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            nav ul {
+                gap: 0.5rem;
+            }
+            nav ul li a {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+            .login-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-text">UC</div>
+                <div class="slogan">Portal de Acceso Académico</div>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="main_portal.html" class="active">Login</a></li>
+                <!-- Asegúrese de que estos archivos existan en su carpeta -->
+                <li><a href="estudiantes.html">Estudiantes</a></li> 
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="profesores.html">Profesores</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="login-card">
+                <h2 class="login-title">Inicio de Sesión</h2>
+                <p class="login-subtitle">Ingrese sus credenciales para acceder al sistema.</p>
+
+                <form onsubmit="event.preventDefault(); alert('Acceso Concedido: ¡Bienvenido al sistema!');">
+                    <div class="form-group">
+                        <label for="username">Usuario (Carné)</label>
+                        <input type="text" id="username" placeholder="Ej: B12345" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Ingresar</button>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #9ca3af;">
+                        Este es un prototipo de simulación de acceso.
+                    </p>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
+                &copy; 2025 Universidad Central. Módulo de Acceso.
+            </p>
+        </footer>
     </div>
-    <footer style="background-color: #333; color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; width: 100%;">
-        <p style="margin: 0;">&copy; 2025 Sistema Académico</p>
-    </footer>
-
 </body>
 </html>
 
