@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Principal - Acceso UC</title>
+    <title>Módulo de Estudiantes</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
     
-    <!-- CSS EMBEBIDO (Usando la paleta UC Azul) -->
+    <!-- CSS EMBEBIDO (Misma paleta UC Azul) -->
     <style>
-        /* -------------------------------------------------------------------
-           VARIABLES Y ESTILOS BASE (UC Palette)
-           ------------------------------------------------------------------- */
         :root {
             --uc-blue: #005DA4; 
             --uc-cyan: #00C0F3; 
@@ -43,9 +40,6 @@
             width: 100%;
         }
         
-        /* -------------------------------------------------------------------
-           ENCABEZADO Y NAVEGACIÓN
-           ------------------------------------------------------------------- */
         header {
             background-color: var(--uc-blue);
             padding: 1.5rem 2.5rem;
@@ -106,83 +100,28 @@
         main {
             padding: 2.5rem;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 50vh;
         }
-        
-        /* -------------------------------------------------------------------
-           LOGIN FORM
-           ------------------------------------------------------------------- */
-        .login-card {
-            max-width: 400px;
-            padding: 2.5rem;
-            background-color: #fcfdfe;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid var(--uc-cyan);
-        }
 
-        .login-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--uc-blue);
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-        
-        .login-subtitle {
-            font-size: 1rem;
-            color: #6b7280;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: var(--uc-text-dark);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus {
-            border-color: var(--uc-cyan);
-            box-shadow: 0 0 0 3px rgba(0, 192, 243, 0.3);
-            outline: none;
-        }
-
-        .btn-submit {
-            display: block;
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--uc-blue);
-            color: white;
+        .module-title {
+            font-size: 2rem;
             font-weight: 700;
-            border: none;
+            color: var(--uc-blue);
+            border-bottom: 3px solid var(--uc-cyan);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .placeholder-box {
+            background-color: var(--uc-cyan-light);
+            border: 1px dashed var(--uc-cyan);
+            padding: 2rem;
             border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--uc-blue);
         }
-
-        .btn-submit:hover {
-            background-color: #004b86;
-        }
-
+        
         /* -------------------------------------------------------------------
            RESPONSIVIDAD
            ------------------------------------------------------------------- */
@@ -198,9 +137,6 @@
                 padding: 0.5rem;
                 font-size: 0.875rem;
             }
-            .login-card {
-                padding: 1.5rem;
-            }
         }
     </style>
 </head>
@@ -209,45 +145,35 @@
         <header>
             <div class="logo-container">
                 <div class="logo-text">UC</div>
-                <div class="slogan">Portal de Acceso Académico</div>
+                <div class="slogan">Sistema de Gestión Académica</div>
             </div>
         </header>
         
         <nav>
             <ul>
-                <li><a href="main_portal.html" class="active">Login</a></li>
-                <!-- ESTE ES EL CAMBIO CLAVE: Los enlaces apuntan a la carpeta 'pages/' -->
-                <li><a href="pages/estudiantes.html">Estudiantes</a></li> 
-                <li><a href="pages/cursos.html">Cursos</a></li>
-                <li><a href="pages/profesores.html">Profesores</a></li>
+                <!-- NOTA CLAVE: Usamos "../" para subir al directorio raíz y encontrar main_portal.html -->
+                <li><a href="../main_portal.html">Login</a></li>
+                <li><a href="estudiantes.html" class="active">Estudiantes</a></li> 
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="profesores.html">Profesores</a></li>
             </ul>
         </nav>
 
         <main>
-            <div class="login-card">
-                <h2 class="login-title">Inicio de Sesión</h2>
-                <p class="login-subtitle">Ingrese sus credenciales para acceder al sistema.</p>
-
-                <form onsubmit="event.preventDefault(); alert('Acceso Concedido: ¡Bienvenido al sistema!');">
-                    <div class="form-group">
-                        <label for="username">Usuario (Carné)</label>
-                        <input type="text" id="username" placeholder="Ej: B12345" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" placeholder="••••••••" required>
-                    </div>
-                    <button type="submit" class="btn-submit">Ingresar</button>
-                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #9ca3af;">
-                        Este es un prototipo de simulación de acceso.
-                    </p>
-                </form>
+            <h1 class="module-title">Gestión de Estudiantes</h1>
+            
+            <div class="placeholder-box">
+                Aquí se desarrollará la tabla y el formulario para el CRUD de estudiantes.
             </div>
+
+            <p style="margin-top: 1.5rem;">
+                Este módulo permitirá agregar, ver, actualizar y eliminar registros de alumnos de la universidad.
+            </p>
         </main>
 
         <footer>
             <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
-                &copy; 2025 Universidad Central. Módulo de Acceso.
+                &copy; 2025 Universidad Central. Módulo de Estudiantes.
             </p>
         </footer>
     </div>
