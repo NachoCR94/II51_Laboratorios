@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Matrícula de Estudiantes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #eef2f6;
+        }
+        .card {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-8">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Formulario de Matrícula</h1>
+            <p class="text-lg text-gray-600">Registro de datos del estudiante y selección de cursos.</p>
+        </header>
+
+        <form id="matriculaForm" class="space-y-8">
+            
+            <!-- SECCIÓN 1: Datos del Estudiante -->
+            <div class="card bg-white p-6 rounded-xl border border-gray-200">
+                <h2 class="text-2xl font-semibold text-blue-600 mb-4 pb-2 border-b border-blue-100">1. Datos Personales del Estudiante</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+                        <input type="text" id="nombre" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="identificacion" class="block text-sm font-medium text-gray-700 mb-1">Identificación</label>
+                        <input type="text" id="identificacion" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="carrera" class="block text-sm font-medium text-gray-700 mb-1">Carrera a Matricular</label>
+                        <input type="text" id="carrera" value="Bachillerato en Ingeniería Informática" readonly class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 cursor-not-allowed">
+                    </div>
+                    <div>
+                        <label for="profesor" class="block text-sm font-medium text-gray-700 mb-1">Profesor Guía Asignado</label>
+                        <select id="profesor" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white">
+                            <!-- Los profesores se cargarán aquí dinámicamente -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: Matrícula de Cursos -->
+            <div class="card bg-white p-6 rounded-xl border border-gray-200">
+                <h2 class="text-2xl font-semibold text-blue-600 mb-4 pb-2 border-b border-blue-100">2. Selección de Cursos</h2>
+                <div id="cursos-container" class="space-y-6">
+                    <!-- Los cursos se cargarán aquí dinámicamente -->
+                    <p class="text-gray-500 text-center py-4" id="loading-message">Cargando cursos...</p>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition duration-300 shadow-lg hover:shadow-xl">
+                Finalizar Matrícula
+            </button>
+        </form>
+
+        <!-- Modal de Confirmación -->
+        <div id="confirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-75 hidden items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-xl p-8 max-w-sm w-full shadow-2xl">
+                <h3 class="text-xl font-bold text-green-600 mb-4">Matrícula Exitosa</h3>
+                <p id="modalMessage" class="text-gray-700 mb-6">El estudiante ha sido registrado y los cursos seleccionados. </p>
+                <div class="flex justify-end">
+                    <button id="closeModal" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-150">
+                        Aceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Array de profesores para el dropdown
+        const profesores = [
+            "Dr. Juan Pérez (Profesor Guía)",
+            "MSc. Ana García (Coordinadora)",
+            "Ing. Luis Gómez (Tutor)",
+            "Lic. Sofía Rojas (Asesora)"
+        ];
+
+        // Definición de los cursos basada en las imágenes
+        // K se refiere a Martes (Tuesday)
+        const cursosData = [
+            // 1er Cuatrimestre
+            { cuatrimestre: '1er Cuatrimestre', nombre: 'COMUNICACION (EG-10)', grupos: [
+                { id: 'C1-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
+                { id: 'C1-6', dia: 'K', hora: '3:00PM-6:00PM' },
+                { id: 'C1-7', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'C1-11', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'C1-15', dia: 'S', hora: '8:00AM-11:00AM' },
+                { id: 'C1-16', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. A' },
+            { cuatrimestre: '1er Cuatrimestre', nombre: 'INGLES I (IN-10)', grupos: [
+                { id: 'I1-17', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
+                { id: 'I1-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'I1-4', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'I1-5', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'I1-9', dia: 'K', hora: '8:00AM-11:00AM' },
+                { id: 'I1-10', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'I1-16', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. B' },
+            { cuatrimestre: '1er Cuatrimestre', nombre: 'INTRODUCCION A LA INFORMATICA (II-11)', grupos: [
+                { id: 'IN1-1', dia: 'K', hora: '6:30PM-9:30PM' }, 
+                { id: 'IN1-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'IN1-3', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'IN1-4', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. C' },
+            { cuatrimestre: '1er Cuatrimestre', nombre: 'MATEMATICA I (MA-11)', grupos: [
+                { id: 'M1-15', dia: 'L', hora: '6:30PM-9:30PM', teoria: true },
+                { id: 'M1-16', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
+                { id: 'M1-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'M1-2', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'M1-3', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'M1-4', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'M1-5', dia: 'L', hora: '8:00AM-11:00AM' },
+                { id: 'M1-6', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'M1-7', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'M1-8', dia: 'K', hora: '8:00AM-11:00AM' },
+                { id: 'M1-9', dia: 'K', hora: '3:00PM-6:00PM' },
+                { id: 'M1-10', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'M1-11', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'M1-12', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'M1-13', dia: 'S', hora: '8:00AM-11:00AM' },
+                { id: 'M1-14', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. D' },
+            
+            // 2do Cuatrimestre
+            { cuatrimestre: '2do Cuatrimestre', nombre: 'ADMINISTRACION I (AE-10)', grupos: [
+                { id: 'A2-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'A2-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'A2-3', dia: 'K', hora: '8:00AM-11:00AM' },
+                { id: 'A2-4', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'A2-5', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'A2-6', dia: 'M', hora: '8:00AM-11:00AM' },
+                { id: 'A2-7', dia: 'S', hora: '8:00AM-11:00AM' },
+                { id: 'A2-8', dia: 'V', hora: '6:30PM-9:30PM' },
+                { id: 'A2-9', dia: 'M', hora: '6:30PM-9:30PM', teoria: true },
+            ], profesor: 'Prof. E' },
+            { cuatrimestre: '2do Cuatrimestre', nombre: 'CONTABILIDAD P/ INGENIERIA (CP-15)', grupos: [
+                { id: 'CI2-1', dia: 'L', hora: '6:30PM-9:30PM' }, 
+                { id: 'CI2-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'CI2-3', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'CI2-4', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'CI2-5', dia: 'V', hora: '6:30PM-9:30PM' },
+                { id: 'CI2-6', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'CI2-7', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'CI2-1L', dia: 'L', hora: '6:30PM-9:30PM', teoria: true },
+                { id: 'CI2-2K', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
+                { id: 'CI2-8', dia: 'L', hora: '6:30PM-9:30PM', teoria: true },
+                { id: 'CI2-9', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
+            ], profesor: 'Prof. F' },
+            { cuatrimestre: '2do Cuatrimestre', nombre: 'INGLES II (IN-20)', grupos: [
+                { id: 'IN2-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
+                { id: 'IN2-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'IN2-3', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'IN2-4', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'IN2-6', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'IN2-7', dia: 'S', hora: '11:00AM-2:00PM' },
+                { id: 'IN2-8', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. G' },
+            { cuatrimestre: '2do Cuatrimestre', nombre: 'PROG. DE COMPT. I (TURBO P.) (II-21)', grupos: [
+                { id: 'P2-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'P2-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'P2-3', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'P2-4', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. H' },
+
+            // 3er Cuatrimestre
+            { cuatrimestre: '3er Cuatrimestre', nombre: 'ARQUITECTURA DE COMPUTADORES (II-48)', grupos: [
+                { id: 'AR3-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
+                { id: 'AR3-2', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'AR3-3', dia: 'M', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. I' },
+            { cuatrimestre: '3er Cuatrimestre', nombre: 'CALCULO I (MA-33)', grupos: [
+                { id: 'C3-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
+                { id: 'C3-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'C3-3', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'C3-4', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'C3-5', dia: 'K', hora: '3:00PM-6:00PM' },
+                { id: 'C3-6', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'C3-7', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'C3-8', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'C3-9', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'C3-10', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. J' },
+            { cuatrimestre: '3er Cuatrimestre', nombre: 'ECONOMIA PARA INGENIERIA (EE142)', grupos: [
+                { id: 'E3-9', dia: 'M', hora: '6:30PM-9:30PM' }, 
+                { id: 'E3-10', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'E3-11', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'E3-12', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'E3-13', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'E3-14', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'E3-15', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'E3-16', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. K' },
+            { cuatrimestre: '3er Cuatrimestre', nombre: 'PROGRAMACION INTERNET (II-51)', grupos: [
+                { id: 'P3-1', dia: 'L', hora: '6:30PM-9:30PM' }, 
+                { id: 'P3-2', dia: 'M', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. L' },
+            { cuatrimestre: '3er Cuatrimestre', nombre: 'SISTEMAS COMPUTACIONALES (C) (II-60)', grupos: [
+                { id: 'SC3-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
+                { id: 'SC3-2', dia: 'V', hora: '6:30PM-9:30PM' },
+                { id: 'SC3-3', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'SC3-4', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. M' },
+
+            // 4to Cuatrimestre
+            { cuatrimestre: '4to Cuatrimestre', nombre: 'ESTRUCT. DE DATOS Y ALGORITMOS (II-35)', grupos: [
+                { id: 'E4-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'E4-2', dia: 'K', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. N' },
+            { cuatrimestre: '4to Cuatrimestre', nombre: 'FINANZAS P/INGENIERIA/ARQUITEC (F-140)', grupos: [
+                { id: 'F4-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
+                { id: 'F4-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'F4-3', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'F4-4', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'F4-5', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. O' },
+            { cuatrimestre: '4to Cuatrimestre', nombre: 'METODOS ESTADISTICOS I (ES-10)', grupos: [
+                { id: 'ME4-12', dia: 'M', hora: '6:30PM-9:30PM', teoria: true },
+                { id: 'ME4-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'ME4-2', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'ME4-5', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'ME4-7', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'ME4-11', dia: 'S', hora: '8:00AM-11:00AM' },
+            ], profesor: 'Prof. P' },
+            { cuatrimestre: '4to Cuatrimestre', nombre: 'PROG.COMPUTAD. II (VIS.BASIC) (II-36)', grupos: [
+                { id: 'PC4-1', dia: 'L', hora: '6:30PM-9:30PM' },
+                { id: 'PC4-2', dia: 'L', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. Q' },
+
+            // 5to Cuatrimestre
+            { cuatrimestre: '5to Cuatrimestre', nombre: 'ORGANIZACION DE ARCHIVOS (II-45)', grupos: [
+                { id: 'OA5-1', dia: 'M', hora: '6:30PM-9:30PM' }, 
+                { id: 'OA5-2', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. R' },
+            { cuatrimestre: '5to Cuatrimestre', nombre: 'PROG.COMPUT.III (VIS.BAS.AVAN) (II-46)', grupos: [
+                { id: 'PC5-1', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'PC5-2', dia: 'L', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. S' },
+            { cuatrimestre: '5to Cuatrimestre', nombre: 'SISTEMAS OPERATIVOS I (II-50)', grupos: [
+                { id: 'SO5-1', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'SO5-2', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'SO5-3', dia: 'L', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. T' },
+
+            // 6to Cuatrimestre
+            { cuatrimestre: '6to Cuatrimestre', nombre: 'ADMINISTRACION DE PROYECTOS (II-86)', grupos: [
+                { id: 'AP6-1', dia: 'J', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. U' },
+            { cuatrimestre: '6to Cuatrimestre', nombre: 'ANALISIS Y DIS. DE SIST. I (II-65)', grupos: [
+                { id: 'AD6-1', dia: 'L', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. V' },
+            { cuatrimestre: '6to Cuatrimestre', nombre: 'DIS. Y OPTIM. BASES DE DATOS (II-55)', grupos: [
+                { id: 'DO6-1', dia: 'K', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. W' },
+            { cuatrimestre: '6to Cuatrimestre', nombre: 'TELEMATICA I (II-76)', grupos: [
+                { id: 'T6-1', dia: 'V', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. X' },
+
+            // 7mo Cuatrimestre
+            { cuatrimestre: '7mo Cuatrimestre', nombre: 'ADMINISTR. CENTROS DE COMPUTO (II-84)', grupos: [
+                { id: 'ACC7-1', dia: 'K', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. Y' },
+            { cuatrimestre: '7mo Cuatrimestre', nombre: 'ANALISIS Y DIS. DE SIST. II (II-75)', grupos: [
+                { id: 'AD7-1', dia: 'J', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. Z' },
+            { cuatrimestre: '7mo Cuatrimestre', nombre: 'INVESTIGACION DE OPERATIVA I (II-68)', grupos: [
+                { id: 'IO7-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'IO7-2', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'IO7-3', dia: 'K', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. AA' },
+            { cuatrimestre: '7mo Cuatrimestre', nombre: 'Taller Final de Graduacion (TFG-INF)', grupos: [
+                { id: 'TFG7-1', dia: 'S', hora: '8:00AM-11:00AM' },
+                { id: 'TFG7-2', dia: 'S', hora: '8:00AM-11:00AM' },
+            ], profesor: 'Prof. BB' },
+            
+            // 8vo Cuatrimestre
+            { cuatrimestre: '8vo Cuatrimestre', nombre: 'AUDITORIA SIST. COMPUTACIONAL. (II-82)', grupos: [
+                { id: 'AS8-1', dia: 'M', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. CC' },
+            { cuatrimestre: '8vo Cuatrimestre', nombre: 'INVESTIGAC. C. DE OPERACIONES II (II-78)', grupos: [
+                { id: 'IO8-1', dia: 'J', hora: '6:30PM-9:30PM' },
+                { id: 'IO8-2', dia: 'M', hora: '6:30PM-9:30PM' },
+                { id: 'IO8-3', dia: 'K', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. DD' },
+            { cuatrimestre: '8vo Cuatrimestre', nombre: 'PROG. DE LENG. DE 4TA GENERACION (II-88)', grupos: [
+                { id: 'PL8-1', dia: 'K', hora: '6:30PM-9:30PM' },
+                { id: 'PL8-2', dia: 'K', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. EE' },
+            { cuatrimestre: '8vo Cuatrimestre', nombre: 'TELEMATICA II (II-90)', grupos: [
+                { id: 'T8-1', dia: 'L', hora: '6:30PM-9:30PM' },
+            ], profesor: 'Prof. FF' },
+        ];
+
+
+        // Función para mapear el día de la letra a su nombre completo
+        const mapDay = (letter) => {
+            const daysMap = {
+                'L': 'Lunes', 
+                'K': 'Martes', // K se refiere a Martes según tu indicación
+                'M': 'Miércoles', 
+                'J': 'Jueves', 
+                'V': 'Viernes', 
+                'S': 'Sábado'
+            };
+            return daysMap[letter] || letter;
+        };
+
+        // Función para elegir una modalidad al azar
+        const getRandomModalidad = () => {
+            return Math.random() < 0.5 ? 'Virtual' : 'Presencial';
+        };
+
+        // Función principal para cargar los cursos y la lista de profesores
+        function initializeMatriculaForm() {
+            const cursosContainer = document.getElementById('cursos-container');
+            const profesorSelect = document.getElementById('profesor');
+            const loadingMessage = document.getElementById('loading-message');
+            
+            // Limpiar mensaje de carga
+            if (loadingMessage) {
+                loadingMessage.remove();
+            }
+
+            // 1. Cargar Profesores
+            // Se añade una opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "Seleccione un profesor guía";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            profesorSelect.appendChild(defaultOption);
+
+            profesores.forEach(prof => {
+                const option = document.createElement('option');
+                option.value = prof;
+                option.textContent = prof;
+                profesorSelect.appendChild(option);
+            });
+
+
+            // 2. Cargar Cursos
+            // Agrupar cursos por cuatrimestre para mejor presentación
+            const cursosAgrupados = cursosData.reduce((acc, curso) => {
+                if (!acc[curso.cuatrimestre]) {
+                    acc[curso.cuatrimestre] = [];
+                }
+                acc[curso.cuatrimestre].push(curso);
+                return acc;
+            }, {});
+
+            for (const cuatrimestre in cursosAgrupados) {
+                // Título del cuatrimestre
+                const cuatrimestreHeader = document.createElement('h3');
+                cuatrimestreHeader.className = 'text-xl font-bold text-gray-800 border-b border-gray-200 mt-6 pt-4 mb-3';
+                cuatrimestreHeader.textContent = cuatrimestre;
+                cursosContainer.appendChild(cuatrimestreHeader);
+
+                // Lista de cursos dentro del cuatrimestre
+                cursosAgrupados[cuatrimestre].forEach(curso => {
+                    const cursoDiv = document.createElement('div');
+                    cursoDiv.className = 'border border-blue-100 p-4 rounded-lg bg-blue-50/50';
+
+                    const cursoTitle = document.createElement('p');
+                    cursoTitle.className = 'text-lg font-semibold text-blue-800 mb-2';
+                    cursoTitle.textContent = `${curso.nombre} - Profesor: ${curso.profesor}`;
+                    cursoDiv.appendChild(cursoTitle);
+
+                    const gruposContainer = document.createElement('div');
+                    gruposContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-3';
+
+                    curso.grupos.forEach(grupo => {
+                        const modalidad = getRandomModalidad(); // Asignar modalidad al azar
+
+                        const grupoId = `curso-${grupo.id}`;
+                        const labelText = `Grupo ${grupo.id} | ${mapDay(grupo.dia)} (${grupo.hora}) - Modalidad: ${modalidad}`;
+
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.id = grupoId;
+                        input.name = 'cursosMatriculados';
+                        input.value = labelText;
+                        input.className = 'mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500';
+
+                        const label = document.createElement('label');
+                        label.htmlFor = grupoId;
+                        label.className = 'text-sm text-gray-700 select-none flex items-center p-2 bg-white rounded-lg border hover:bg-gray-50 cursor-pointer transition';
+                        label.appendChild(input);
+                        label.appendChild(document.createTextNode(labelText));
+
+                        gruposContainer.appendChild(label);
+                    });
+
+                    cursoDiv.appendChild(gruposContainer);
+                    cursosContainer.appendChild(cursoDiv);
+                });
+            }
+        }
+
+        // Inicializar el formulario al cargar la página
+        document.addEventListener('DOMContentLoaded', initializeMatriculaForm);
+
+        // Lógica del formulario de envío
+        document.getElementById('matriculaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // 1. Recoger datos del estudiante
+            const nombre = document.getElementById('nombre').value;
+            const identificacion = document.getElementById('identificacion').value;
+            const profesor = document.getElementById('profesor').value;
+
+            // 2. Recoger cursos seleccionados
+            const cursosSeleccionados = Array.from(document.querySelectorAll('input[name="cursosMatriculados"]:checked'))
+                .map(checkbox => checkbox.value);
+
+            // Validar que se haya seleccionado al menos un curso
+            if (cursosSeleccionados.length === 0) {
+                document.getElementById('modalMessage').innerHTML = '🚨 **Error:** Debe seleccionar al menos un curso para matricular.';
+                document.getElementById('confirmationModal').classList.remove('hidden');
+                document.getElementById('confirmationModal').classList.add('flex');
+                return;
+            }
+
+            // 3. Crear el objeto de matrícula (simulación)
+            const matriculaData = {
+                estudiante: { nombre, identificacion, profesor },
+                cursos: cursosSeleccionados,
+                fecha: new Date().toLocaleString('es-CR')
+            };
+
+            console.log('Datos de Matrícula Enviados (Simulación):', matriculaData);
+
+            // 4. Mostrar el modal de confirmación
+            document.getElementById('modalMessage').innerHTML = `
+                El estudiante **${nombre}** con ID **${identificacion}** ha sido matriculado en **${cursosSeleccionados.length}** cursos. 
+                <br><br>Su profesor guía es: **${profesor}**.
+            `;
+            document.getElementById('confirmationModal').classList.remove('hidden');
+            document.getElementById('confirmationModal').classList.add('flex');
+            
+            // Opcional: Resetear formulario después de enviar
+            this.reset();
+        });
+
+        // Lógica para cerrar el modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('confirmationModal').classList.add('hidden');
+            document.getElementById('confirmationModal').classList.remove('flex');
+        });
+    </script>
+</body>
+</html>
