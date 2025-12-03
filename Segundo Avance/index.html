@@ -1,255 +1,375 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Principal - Acceso UC</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Principal - Acceso UC</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
+
+<!-- CSS EMBEBIDO (Usando la paleta UC Azul) -->
+<style>
+    /* -------------------------------------------------------------------
+        VARIABLES Y ESTILOS BASE (UC Palette)
+        ------------------------------------------------------------------- */
+    :root {
+        --uc-blue: #005DA4; 
+        --uc-cyan: #00C0F3; 
+        --uc-cyan-light: #E0F7FF; 
+        --uc-bg-light: #f7f9fb; 
+        --uc-text-dark: #1f2937; 
+    }
     
-    <!-- CSS EMBEBIDO (Usando la paleta UC Azul) -->
-    <style>
-        /* -------------------------------------------------------------------
-           VARIABLES Y ESTILOS BASE (UC Palette)
-           ------------------------------------------------------------------- */
-        :root {
-            --uc-blue: #005DA4; 
-            --uc-cyan: #00C0F3; 
-            --uc-cyan-light: #E0F7FF; 
-            --uc-bg-light: #f7f9fb; 
-            --uc-text-dark: #1f2937; 
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--uc-bg-light); 
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--uc-text-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .app-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 0.75rem;
+        border-top: 8px solid var(--uc-blue);
+        overflow: hidden; 
+        width: 100%;
+    }
+    
+    /* -------------------------------------------------------------------
+        ENCABEZADO Y NAVEGACIÓN
+        ------------------------------------------------------------------- */
+    header {
+        background-color: var(--uc-blue);
+        padding: 1.5rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 4px solid var(--uc-cyan);
+    }
+    
+    .logo-text {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+    }
+    
+    .slogan {
+        font-size: 1rem;
+        color: var(--uc-cyan-light); 
+        font-style: italic;
+        font-weight: 500;
+        margin-top: 0.25rem;
+    }
+    
+    nav {
+        background-color: #004b86; 
+        padding: 0.5rem 2.5rem;
+        border-bottom: 1px solid var(--uc-cyan);
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        display: block;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        border-radius: 0.3rem;
+    }
+    
+    nav ul li a:hover, nav ul li a.active {
+        background-color: var(--uc-cyan);
+        color: var(--uc-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    main {
+        padding: 2.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 50vh;
+    }
+    
+    /* -------------------------------------------------------------------
+        LOGIN FORM
+        ------------------------------------------------------------------- */
+    .login-card {
+        max-width: 400px;
+        padding: 2.5rem;
+        background-color: #fcfdfe;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid var(--uc-cyan);
+    }
+
+    .login-title {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--uc-blue);
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    
+    .login-subtitle {
+        font-size: 1rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: var(--uc-text-dark);
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--uc-cyan);
+        box-shadow: 0 0 0 3px rgba(0, 192, 243, 0.3);
+        outline: none;
+    }
+
+    .btn-submit {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--uc-blue);
+        color: white;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+        background-color: #004b86;
+    }
+    
+    /* -------------------------------------------------------------------
+        MODAL DE BIENVENIDA (Reemplaza a alert())
+        ------------------------------------------------------------------- */
+    .message-box {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .message-box.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .message-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 90%;
+        animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .message-content h3 {
+        color: var(--uc-blue);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .message-content p {
+        color: var(--uc-text-dark);
+        margin-bottom: 1.5rem;
+    }
+
+    .message-content button {
+        padding: 0.75rem 1.5rem;
+        background-color: var(--uc-cyan);
+        color: var(--uc-blue);
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .message-content button:hover {
+        background-color: #0099cc;
+    }
+
+    @keyframes bounceIn {
+        0% { transform: scale(0.8); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    
+    /* -------------------------------------------------------------------
+        RESPONSIVIDAD
+        ------------------------------------------------------------------- */
+    @media (max-width: 768px) {
+        header, nav, main {
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
-        
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--uc-bg-light); 
-            min-height: 100vh;
-            padding: 20px;
-            color: var(--uc-text-dark);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .app-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border-radius: 0.75rem;
-            border-top: 8px solid var(--uc-blue);
-            overflow: hidden; 
-            width: 100%;
-        }
-        
-        /* -------------------------------------------------------------------
-           ENCABEZADO Y NAVEGACIÓN
-           ------------------------------------------------------------------- */
-        header {
-            background-color: var(--uc-blue);
-            padding: 1.5rem 2.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-bottom: 4px solid var(--uc-cyan);
-        }
-        
-        .logo-text {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: white;
-            line-height: 1;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
-        }
-        
-        .slogan {
-            font-size: 1rem;
-            color: var(--uc-cyan-light); 
-            font-style: italic;
-            font-weight: 500;
-            margin-top: 0.25rem;
-        }
-        
-        nav {
-            background-color: #004b86; 
-            padding: 0.5rem 2.5rem;
-            border-bottom: 1px solid var(--uc-cyan);
-        }
-        
         nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
+            gap: 0.5rem;
         }
-        
         nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 0.75rem;
-            display: block;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            border-radius: 0.3rem;
+            padding: 0.5rem;
+            font-size: 0.875rem;
         }
-        
-        nav ul li a:hover, nav ul li a.active {
-            background-color: var(--uc-cyan);
-            color: var(--uc-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        main {
-            padding: 2.5rem;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 50vh;
-        }
-        
-        /* -------------------------------------------------------------------
-           LOGIN FORM
-           ------------------------------------------------------------------- */
         .login-card {
-            max-width: 400px;
-            padding: 2.5rem;
-            background-color: #fcfdfe;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid var(--uc-cyan);
+            padding: 1.5rem;
         }
+    }
+</style>
 
-        .login-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--uc-blue);
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-        
-        .login-subtitle {
-            font-size: 1rem;
-            color: #6b7280;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
 
-        .form-group {
-            margin-bottom: 1.25rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: var(--uc-text-dark);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus {
-            border-color: var(--uc-cyan);
-            box-shadow: 0 0 0 3px rgba(0, 192, 243, 0.3);
-            outline: none;
-        }
-
-        .btn-submit {
-            display: block;
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--uc-blue);
-            color: white;
-            font-weight: 700;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-        }
-
-        .btn-submit:hover {
-            background-color: #004b86;
-        }
-
-        /* -------------------------------------------------------------------
-           RESPONSIVIDAD
-           ------------------------------------------------------------------- */
-        @media (max-width: 768px) {
-            header, nav, main {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            nav ul {
-                gap: 0.5rem;
-            }
-            nav ul li a {
-                padding: 0.5rem;
-                font-size: 0.875rem;
-            }
-            .login-card {
-                padding: 1.5rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <div class="app-container">
-        <header>
-            <div class="logo-container">
-                <div class="logo-text">UC</div>
-                <div class="slogan">Portal de Acceso Académico</div>
-            </div>
-        </header>
-        
-        <nav>
-            <ul>
-                <li><a href="main_portal.html" class="active">Login</a></li>
-                <!-- Asegúrese de que estos archivos existan en su carpeta -->
-                <li><a href="estudiantes.html">Estudiantes</a></li> 
-                <li><a href="cursos.html">Cursos</a></li>
-                <li><a href="profesores.html">Profesores</a></li>
-            </ul>
-        </nav>
+<div class="app-container">
+<header>
+<div class="logo-container">
+<div class="logo-text">UC</div>
+<div class="slogan">Portal de Acceso Académico</div>
+</div>
+</header>
 
-        <main>
-            <div class="login-card">
-                <h2 class="login-title">Inicio de Sesión</h2>
-                <p class="login-subtitle">Ingrese sus credenciales para acceder al sistema.</p>
+    <nav>
+        <ul>
+            <!-- Los enlaces de navegación ahora usan una función simple de JavaScript -->
+            <li><a href="#" onclick="showPage('index.html')" class="active">Login</a></li>
+            <li><a href="#" onclick="showPage('estudiantes.html')">Estudiantes</a></li> 
+            <li><a href="#" onclick="showPage('cursos.html')">Cursos</a></li>
+            <li><a href="#" onclick="showPage('profesores.html')">Profesores</a></li>
+        </ul>
+    </nav>
 
-                <form onsubmit="event.preventDefault(); alert('Acceso Concedido: ¡Bienvenido al sistema!');">
-                    <div class="form-group">
-                        <label for="username">Usuario (Carné)</label>
-                        <input type="text" id="username" placeholder="Ej: B12345" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" placeholder="••••••••" required>
-                    </div>
-                    <button type="submit" class="btn-submit">Ingresar</button>
-                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #9ca3af;">
-                        Este es un prototipo de simulación de acceso.
-                    </p>
-                </form>
-            </div>
-        </main>
+    <main>
+        <div class="login-card">
+            <h2 class="login-title">Inicio de Sesión</h2>
+            <p class="login-subtitle">Ingrese sus credenciales para acceder al sistema.</p>
 
-        <footer>
-            <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
-                &copy; 2025 Universidad Central. Módulo de Acceso.
-            </p>
-        </footer>
+            <!-- Se usa el ID para manejar el evento submit con JavaScript. -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario (Carné)</label>
+                    <input type="text" id="username" placeholder="Ej: B12345" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit">Ingresar</button>
+                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #9ca3af;">
+                    Este es un prototipo de simulación de acceso.
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p style="text-align: center; padding: 1rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #9ca3af;">
+            &copy; 2025 Universidad Central. Módulo de Acceso.
+        </p>
+    </footer>
+</div>
+
+<!-- Mensaje/Modal de Bienvenida (Reemplaza a alert() para una mejor experiencia) -->
+<div id="welcomeMessage" class="message-box">
+    <div class="message-content">
+        <h3>¡Acceso Simulado Exitoso!</h3>
+        <p>Se asume que las credenciales son válidas. Será redirigido a la página de Registro (`registro.html`).</p>
+        <button id="redirectButton">Continuar a Registro</button>
     </div>
+</div>
+
+<!-- Script para la lógica de redirección -->
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // Función principal para manejar el envío del formulario de login
+    function handleLogin(event) {
+        // Evita que el formulario se envíe de forma tradicional y recargue la página
+        event.preventDefault(); 
+
+        // 1. Mostrar el modal de bienvenida
+        const msgBox = document.getElementById('welcomeMessage');
+        msgBox.classList.add('visible');
+
+        // 2. Definir la acción de redirección
+        const redirectAction = () => {
+            // Ocultar el modal
+            msgBox.classList.remove('visible');
+            
+            // Redirigir a la página de registro (registro.html)
+            // Esto funcionará con CUALQUIER usuario y contraseña ingresados.
+            window.location.href = 'registro.html'; 
+        };
+        
+        // 3. Asignar la redirección al botón del modal
+        document.getElementById('redirectButton').onclick = redirectAction;
+    }
+
+    // Conecta la función de manejo al evento 'submit' del formulario al cargar el DOM.
+    document.addEventListener('DOMContentLoaded', () => {
+         const loginForm = document.getElementById('loginForm');
+         if (loginForm) {
+             loginForm.addEventListener('submit', handleLogin);
+         }
+    });
+    
+    // Función placeholder para la navegación del menú (simulación)
+    function showPage(page) {
+        // Simula la navegación interna sin recargar la página
+        console.log(`Navegando a ${page}`);
+    }
+</script>
+
+
 </body>
 </html>
