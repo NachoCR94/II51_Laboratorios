@@ -5,91 +5,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link
     rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+    crossorigin="anonymous"
+  />
   <link rel="stylesheet" href="index.css" />
-  <title>lab05</title>
+  <title>Lab 05</title>
 </head>
 <body>
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-4 border">Column</div>
-      <div class="col-2 border">Column</div>
-      <div class="col-2 border">Column</div>
-      <div class="col-2 border">Column</div>
-      <div class="col-2 border">Column</div>
+  <header class="bg-primary text-white p-3 mb-4 shadow-sm">
+    <div class="container">
+      <h1>Lab 05</h1>
+      <p class="lead mb-0">Demostración de Grid y Componentes de Bootstrap</p>
     </div>
+  </header>
 
-    <div class="row mt-3">
-      <div class="col-2 border">Column</div>
-      <div class="col-6 border">Column</div>
-      <div class="col-4 border">Column</div>
-    </div>
-  </div>
-
-  <div id="ctn-1" class="container">
-    <h1 class="mt-5">Lab05</h1>
-    <p class="lead">container</p>
-  </div>
-
-  <div id="ctn-2" class="container-sm">
-    <h1 class="mt-5">Lab05</h1>
-    <p class="lead">container-sm</p>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-sm">One of three columns</div>
-      <div class="col-sm">One of three columns</div>
-      <div class="col-sm">One of three columns</div>
-    </div>
-  </div>
-
-  <div class="container pintar">
-    <div class="row">
-      <div class="col-sm-2">col-sm-2</div>
-      <div class="col-sm-4">col-sm-4</div>
-      <div class="col-sm-4">col-sm-4</div>
-      <div class="col-sm-2">col-sm-2</div>
-    </div>
-    <div class="row">
-      <div class="col-sm">col-sm</div>
-      <div class="col-sm">col-sm</div>
-      <div class="col-sm">col-sm</div>
-    </div>
-  </div>
-
-  <div class="container">
-    <form>
-      <div class="form-row">
-        <div class="form-group col-sm-4 col-md-6">
-          <label for="inputName">Nombre</label>
-          <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" />
-          <small id="nameHelp" class="form-text text-muted">Enter your full name.</small>
-        </div>
-
-        <div class="form-group col-sm-4 col-md-3">
-          <label for="inputEmail">Email</label>
-          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" />
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group col-sm-4 col-md-3">
-          <label for="inputPassword">Contraseña</label>
-          <input type="password" class="form-control" id="inputPassword" />
-        </div>
+  <main class="container py-4">
+    
+    <section class="mb-5 p-3 border rounded shadow-sm bg-light">
+      <h2 class="mb-4 text-primary">Grid Básico</h2>
+      <div class="row text-center mb-3">
+        <div class="col-4 p-2 custom-col">Columna 4</div>
+        <div class="col-2 p-2 custom-col">Columna 2</div>
+        <div class="col-2 p-2 custom-col">Columna 2</div>
+        <div class="col-2 p-2 custom-col">Columna 2</div>
+        <div class="col-2 p-2 custom-col">Columna 2</div>
       </div>
 
-      <div class="row">
-        <div class="col">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+      <div class="row text-center">
+        <div class="col-2 p-2 custom-col">Columna 2</div>
+        <div class="col-6 p-2 custom-col">Columna 6</div>
+        <div class="col-4 p-2 custom-col">Columna 4</div>
       </div>
-    </form>
-  </div>
+    </section>
 
-  <!-- bootstrap js (no integrity attributes here — add correct SRI if needed) -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <section class="mb-5">
+      <h2 class="mb-3 text-primary">Tipos de Contenedores</h2>
+      
+      <div id="ctn-1" class="container p-3 mb-3 border rounded">
+        <h3 class="mt-2">Lab 05</h3>
+        <p class="lead">container (ancho fijo)</p>
+      </div>
+
+      <div id="ctn-2" class="container-sm p-3 mb-3 border rounded">
+        <h3 class="mt-2">Lab 05</h3>
+        <p class="lead">container-sm (ancho completo hasta 'sm')</p>
+      </div>
+      
+      <div class="container-fluid bg-secondary text-white p-3 rounded">
+        <h3 class="mt-2">Lab 05</h3>
+        <p class="lead mb-0">container-fluid (ancho completo)</p>
+      </div>
+    </section>
+    
+    <section class="mb-5 p-3 border rounded shadow-sm">
+      <h2 class="mb-4 text-primary">Grid Responsivo</h2>
+      
+      <div class="row text-center mb-3">
+        <div class="col-sm p-2 custom-col-sm">Una de tres columnas (col-sm)</div>
+        <div class="col-sm p-2 custom-col-sm">Una de tres columnas (col-sm)</div>
+        <div class="col-sm p-2 custom-col-sm">Una de tres columnas (col-sm)</div>
+      </div>
+
+      <div class="row text-center pintar">
+        <div class="col-sm-2 p-2">col-sm-2</div>
+        <div class="col-sm-4 p-2">col-sm-4</div>
+        <div class="col-sm-4 p-2">col-sm-4</div>
+        <div class="col-sm-2 p-2">col-sm-2</div>
+      </div>
+      <div class="row text-center pintar mt-2">
+        <div class="col-sm p-2">col-sm</div>
+        <div class="col-sm p-2">col-sm</div>
+        <div class="col-sm p-2">col-sm</div>
+      </div>
+    </section>
+
+    <section class="p-4 border rounded shadow-lg bg-white">
+      <h2 class="mb-4 text-primary">Formulario de Ejemplo</h2>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-sm-4 col-md-6">
+            <label for="inputName">Nombre</label>
+            <input type="text" class="form-control" id="inputName" placeholder="Nombre completo" aria-describedby="nameHelp" />
+            <small id="nameHelp" class="form-text text-muted">Ingresa tu nombre completo.</small>
+          </div>
+
+          <div class="form-group col-sm-4 col-md-3">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="ejemplo@dominio.com" aria-describedby="emailHelp" />
+            <small id="emailHelp" class="form-text text-info">No compartiremos tu email con nadie.</small>
+          </div>
+
+          <div class="form-group col-sm-4 col-md-3">
+            <label for="inputPassword">Contraseña</label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña segura" />
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col">
+            <button type="submit" class="btn btn-success btn-lg">Enviar Datos</button>
+            <button type="reset" class="btn btn-outline-secondary btn-lg ml-2">Limpiar</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+  
+  <footer class="bg-dark text-white text-center p-3 mt-4">
+    <p class="mb-0">Lab 05 - Diseño Web con Bootstrap</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" 
+  integrity="sha384-DfXdz2f2e77eC8d0c647b5s86eT2A4F2tI+3a6fXj2F9P5+P3G5c86cO/V9C3ZgU9K2LwU6S" 
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-Fy6S3B9q64WdZWQUiU+pP4xWdIqVwJ3cQ0L/v2gWq+w6eP9oJ3xGzXqE0V3v5L3C" 
+  crossorigin="anonymous"></script>
 </body>
 </html>
-

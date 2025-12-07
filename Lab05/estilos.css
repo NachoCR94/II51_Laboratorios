@@ -1,44 +1,69 @@
+/* Estilos generales */
+body {
+    background-color: #f4f7f9; /* Color de fondo suave para todo el cuerpo */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilos para los contenedores */
 #ctn-1 {
- background-color: #f8f9fa;
+    background-color: #e9ecef; /* Gris claro */
 }
 
 #ctn-2 {
- background-color: #a5a5a5;
+    background-color: #ced4da; /* Gris medio */
 }
 
+/* Estilo para las columnas del Grid Básico */
+.custom-col {
+    background-color: #d1ecf1; /* Azul claro para las columnas */
+    border: 1px solid #007bff; /* Borde azul principal */
+    color: #004085;
+    margin-bottom: -1px; /* Para fusionar los bordes verticalmente */
+}
+
+/* Estilo para las columnas con distribución automática (col-sm) */
+.custom-col-sm {
+    background-color: #e2e3e5; 
+    border: 1px solid #6c757d;
+    padding: 10px;
+}
+
+/* Estilo para la sección "pintar" (Grid Responsivo) */
 .pintar > .row > div {
- background-color: #98cbff;
- border: 1px solid #000;
- padding: 10px;
+    /* Color para las columnas responsivas de esta sección */
+    background-color: #cce5ff; 
+    border: 1px solid #007bff;
+    color: #004085;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
 }
 
-/* Extra small devices (portrait phones, Less than 576px) */
-/* No media query for "xs" since this is the default in Bootstrap */
-
+/* Media Queries para cambiar el color del párrafo principal (`.lead`) */
 /* Small devices (Landscape phones, 576px and up) */
 @media (min-width: 576px) {
- p {
-  color: red !important;
- }
+    .lead {
+        color: #dc3545; /* Rojo de Bootstrap */
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
- p {
-  color: blue !important;
- }
+    .lead {
+        color: #007bff; /* Azul de Bootstrap */
+    }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
- p {
-  color: green !important;
- }
+    .lead {
+        color: #28a745; /* Verde de Bootstrap */
+    }
 }
 
 /* Extra large devices (Large desktops, 1200px and up) */
 @media (min-width: 1200px) {
- p {
-  color: purple !important;
- }
+    .lead {
+        color: #6f42c1; /* Púrpura */
+    }
 }
