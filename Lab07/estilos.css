@@ -1,11 +1,18 @@
+/* estilos.css */
+
+/* Define la apariencia básica del bloque de texto antes de que cambie */
 .caja {
-  padding: 10px;
-  border: 1px solid #ccc;
-  transition: background-color 0.3s;
+    /* El form-control en el HTML ya le da el borde y el padding */
+    /* Pero aseguramos un fondo claro */
+    background-color: #f8f9fa; 
+    padding: 0.375rem 0.75rem; /* El padding por defecto del form-control */
 }
 
-.caja.color {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  font-weight: bold;
+/* Clase que se agregará/quitará dinámicamente con jQuery */
+.clase-dinamica {
+    /* Ejemplo: cambiar el fondo y el color de texto */
+    background-color: #ffc107; /* Amarillo de Bootstrap */
+    color: #343a40; /* Texto oscuro */
+    font-weight: bold;
+    border-color: #ffc107 !important; /* Para que el borde también cambie */
 }
