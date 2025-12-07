@@ -1,28 +1,36 @@
-// Validación de formulario
-document.getElementById("validarBtn").addEventListener("click", function () {
-  const nombre = document.getElementById("nombre").value.trim();
-  const apellido = document.getElementById("apellido").value.trim();
-  const mensaje = document.getElementById("mensaje");
+// script.js
 
-  if (nombre === "" || apellido === "") {
-    mensaje.textContent = "Debe completar todos los campos.";
-    mensaje.style.color = "red";
-  } else {
-    mensaje.textContent = `Bienvenido, ${nombre} ${apellido}`;
-    mensaje.style.color = "green";
-  }
-});
+$(document).ready(function() {
 
-// jQuery: Agregar y quitar clase
-$("#agregarClase").click(function () {
-  $("#bloqueTexto").addClass("color");
-});
+    // 1. Función de Validar
+    $("#validarBtn").click(function() {
+        var nombre = $("#nombre").val().trim();
+        var apellido = $("#apellido").val().trim();
+        var mensajeElement = $("#mensaje");
 
-$("#quitarClase").click(function () {
-  $("#bloqueTexto").removeClass("color");
-});
+        if (nombre === "" || apellido === "") {
+            mensajeElement.text("Error: Ambos campos son obligatorios.").css("color", "red");
+        } else {
+            mensajeElement.text("Validación exitosa. Bienvenido/a, " + nombre + " " + apellido + ".").css("color", "green");
+        }
+    });
 
-// jQuery: Mostrar y ocultar elemento
-$("#mostrarOcultar").click(function () {
-  $("#elementoOculto").toggle();
+    // 2. Agregar Clase
+    $("#agregarClase").click(function() {
+        $("#bloqueTexto").addClass("clase-dinamica");
+    });
+
+    // 3. Quitar Clase
+    $("#quitarClase").click(function() {
+        $("#bloqueTexto").removeClass("clase-dinamica");
+    });
+
+    // 4. Mostrar/Ocultar
+    $("#mostrarOcultar").click(function() {
+        $("#elementoOculto").slideToggle(); // Animación de jQuery para mostrar/ocultar
+        // Cambiar el texto del botón si quieres:
+        var currentText = $(this).text();
+        $(this).text(currentText === "Mostrar/Ocultar Elemento" ? "Ocultar/Mostrar Elemento" : "Mostrar/Ocultar Elemento");
+    });
+
 });
