@@ -1,18 +1,12 @@
 /* estilos.css */
 
-/* Define la apariencia básica del bloque de texto antes de que cambie */
-.caja {
-    /* El form-control en el HTML ya le da el borde y el padding */
-    /* Pero aseguramos un fondo claro */
-    background-color: #f8f9fa; 
-    padding: 0.375rem 0.75rem; /* El padding por defecto del form-control */
-}
-
-/* Clase que se agregará/quitará dinámicamente con jQuery */
+/* Clase que se agregará/quitará dinámicamente con jQuery. */
 .clase-dinamica {
-    /* Ejemplo: cambiar el fondo y el color de texto */
-    background-color: #ffc107; /* Amarillo de Bootstrap */
-    color: #343a40; /* Texto oscuro */
+    /* Color de fondo: Amarillo vibrante (o un color que contraste fuertemente) */
+    background-color: #ffeb3b !important; 
+    /* Color de texto: Negro para asegurar la lectura sobre el amarillo */
+    color: #000000 !important; 
     font-weight: bold;
-    border-color: #ffc107 !important; /* Para que el borde también cambie */
+    /* Eliminar el borde azul por defecto de form-control para que solo se vea el amarillo */
+    border-color: #ffeb3b !important; 
 }
