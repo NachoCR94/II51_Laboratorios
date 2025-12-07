@@ -2,6 +2,12 @@
 body {
     background-color: #f4f7f9; /* Color de fondo suave para todo el cuerpo */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 60px; /* Para que el contenido no se oculte debajo del navbar fijo */
+}
+
+/* Estilos para el Navbar fijo */
+.navbar-dark.bg-dark {
+    background-color: #343a40 !important;
 }
 
 /* Estilos para los contenedores */
@@ -18,7 +24,7 @@ body {
     background-color: #d1ecf1; /* Azul claro para las columnas */
     border: 1px solid #007bff; /* Borde azul principal */
     color: #004085;
-    margin-bottom: -1px; /* Para fusionar los bordes verticalmente */
+    margin-bottom: -1px; 
 }
 
 /* Estilo para las columnas con distribución automática (col-sm) */
@@ -30,7 +36,6 @@ body {
 
 /* Estilo para la sección "pintar" (Grid Responsivo) */
 .pintar > .row > div {
-    /* Color para las columnas responsivas de esta sección */
     background-color: #cce5ff; 
     border: 1px solid #007bff;
     color: #004085;

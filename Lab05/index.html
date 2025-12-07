@@ -13,16 +13,79 @@
   <title>Lab 05</title>
 </head>
 <body>
-  <header class="bg-primary text-white p-3 mb-4 shadow-sm">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
-      <h1>Lab 05</h1>
-      <p class="lead mb-0">Demostración de Grid y Componentes de Bootstrap</p>
+        <a class="navbar-brand" href="#">Lab 05 - Diseño</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#seccion-grid">Grid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#seccion-cards">Tarjetas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#seccion-formulario">Formulario</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </header>
+  </nav>
 
   <main class="container py-4">
     
-    <section class="mb-5 p-3 border rounded shadow-sm bg-light">
+    <section id="seccion-cards" class="mb-5 p-3">
+        <h2 class="mb-4 text-primary text-center">Tarjetas de Contenido</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    
+
+[Image of a responsive web design layout]
+
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Diseño Responsive</h5>
+                        <p class="card-text">Uso de la clase **col-md-4** para que las tarjetas se apilen en dispositivos pequeños y se muestren en tres columnas en medianos y grandes.</p>
+                        <a href="#" class="btn btn-success">Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-info text-white">
+                        Componente Grid
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Sistema de 12 Columnas</h5>
+                        <p class="card-text">El sistema de grid es fundamental para la organización del contenido en cualquier dispositivo.</p>
+                        <a href="#" class="btn btn-info">Más Info</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Contenedores</h5>
+                        <p class="card-text">Muestra de los contenedores **container**, **container-sm** y **container-fluid** para diferentes anchos.</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Última Actualización: 05/12
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+    
+    <section id="seccion-grid" class="mb-5 p-3 border rounded shadow-sm bg-light">
       <h2 class="mb-4 text-primary">Grid Básico</h2>
       <div class="row text-center mb-3">
         <div class="col-4 p-2 custom-col">Columna 4</div>
@@ -80,7 +143,7 @@
       </div>
     </section>
 
-    <section class="p-4 border rounded shadow-lg bg-white">
+    <section id="seccion-formulario" class="p-4 border rounded shadow-lg bg-white">
       <h2 class="mb-4 text-primary">Formulario de Ejemplo</h2>
       <form>
         <div class="form-row">
