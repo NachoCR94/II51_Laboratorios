@@ -34,6 +34,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#seccion-formulario">Formulario</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#seccion-data">Base de Datos</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -48,7 +51,9 @@
                 <div class="card shadow-sm h-100">
                     
 
+
 [Image of a responsive web design layout]
+
 
                     <div class="card-body">
                         <h5 class="card-title text-success">Diseño Responsive</h5>
@@ -84,64 +89,6 @@
     </section>
 
     <hr>
-    
-    <section id="seccion-grid" class="mb-5 p-3 border rounded shadow-sm bg-light">
-      <h2 class="mb-4 text-primary">Grid Básico</h2>
-      <div class="row text-center mb-3">
-        <div class="col-4 p-2 custom-col">Columna 4</div>
-        <div class="col-2 p-2 custom-col">Columna 2</div>
-        <div class="col-2 p-2 custom-col">Columna 2</div>
-        <div class="col-2 p-2 custom-col">Columna 2</div>
-        <div class="col-2 p-2 custom-col">Columna 2</div>
-      </div>
-
-      <div class="row text-center">
-        <div class="col-2 p-2 custom-col">Columna 2</div>
-        <div class="col-6 p-2 custom-col">Columna 6</div>
-        <div class="col-4 p-2 custom-col">Columna 4</div>
-      </div>
-    </section>
-
-    <section class="mb-5">
-      <h2 class="mb-3 text-primary">Tipos de Contenedores</h2>
-      
-      <div id="ctn-1" class="container p-3 mb-3 border rounded">
-        <h3 class="mt-2">Lab 05</h3>
-        <p class="lead">container (ancho fijo)</p>
-      </div>
-
-      <div id="ctn-2" class="container-sm p-3 mb-3 border rounded">
-        <h3 class="mt-2">Lab 05</h3>
-        <p class="lead">container-sm (ancho completo hasta 'sm')</p>
-      </div>
-      
-      <div class="container-fluid bg-secondary text-white p-3 rounded">
-        <h3 class="mt-2">Lab 05</h3>
-        <p class="lead mb-0">container-fluid (ancho completo)</p>
-      </div>
-    </section>
-    
-    <section class="mb-5 p-3 border rounded shadow-sm">
-      <h2 class="mb-4 text-primary">Grid Responsivo</h2>
-      
-      <div class="row text-center mb-3">
-        <div class="col-sm p-2 custom-col-sm">Una de tres columnas (col-sm)</div>
-        <div class="col-sm p-2 custom-col-sm">Una de tres columnas (col-sm)</div>
-        <div class="col-sm p-2 custom-col-sm">Una de tres columnas (col-sm)</div>
-      </div>
-
-      <div class="row text-center pintar">
-        <div class="col-sm-2 p-2">col-sm-2</div>
-        <div class="col-sm-4 p-2">col-sm-4</div>
-        <div class="col-sm-4 p-2">col-sm-4</div>
-        <div class="col-sm-2 p-2">col-sm-2</div>
-      </div>
-      <div class="row text-center pintar mt-2">
-        <div class="col-sm p-2">col-sm</div>
-        <div class="col-sm p-2">col-sm</div>
-        <div class="col-sm p-2">col-sm</div>
-      </div>
-    </section>
 
     <section id="seccion-formulario" class="p-4 border rounded shadow-lg bg-white">
       <h2 class="mb-4 text-primary">Formulario de Ejemplo</h2>
@@ -173,7 +120,88 @@
         </div>
       </form>
     </section>
-  </main>
+
+    <hr>
+
+    <section id="seccion-data" class="mb-5 p-4 border rounded shadow-sm bg-light">
+        <h2 class="mb-4 text-primary text-center">Base de Datos para el Lab05</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover border">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Correo Electrónico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Alejandra</td>
+                        <td>Gómez</td>
+                        <td>alejandra.g@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Carlos</td>
+                        <td>Ramírez</td>
+                        <td>carlos.r@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Sofía</td>
+                        <td>López</td>
+                        <td>sofia.l@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Javier</td>
+                        <td>Mendoza</td>
+                        <td>javier.m@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Laura</td>
+                        <td>Pérez</td>
+                        <td>laura.p@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>Daniel</td>
+                        <td>Castro</td>
+                        <td>daniel.c@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>María</td>
+                        <td>Sánchez</td>
+                        <td>maria.s@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>Ricardo</td>
+                        <td>Vargas</td>
+                        <td>ricardo.v@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>Elena</td>
+                        <td>Torres</td>
+                        <td>elena.t@ejemplo.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>Andrés</td>
+                        <td>Herrera</td>
+                        <td>andres.h@ejemplo.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    </main>
   
   <footer class="bg-dark text-white text-center p-3 mt-4">
     <p class="mb-0">Lab 05 - Diseño Web con Bootstrap</p>
