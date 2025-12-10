@@ -1,0 +1,3 @@
+let supabasekey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL3N1cGFiYXNlLmNvbS9qd3QtaWQiOiI5ZjYyYzA3Ny1kY2E2LTQyZTAtODI3Yi1hZjYyMjBiZGI0YjEiLCJpYXQiOjE2OTg0NTkyNDYsImV4cCI6MTkzNDAxNTI0Nn0.o8YkKXJ6b1pX4bX1v2K6u0k3Z9O6pX3mX4Z5q5v6U3E";
+let supabaseUrl = "https://nebcjbdhykcfmyikzaig.supabase.co";
+const supabase = supabase.createClient(supabaseUrl, supabasekey);
