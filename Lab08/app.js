@@ -1,0 +1,18 @@
+import { supabase } from "./supabaseClient";    
+
+async function cargarCursos() {     
+    let { data: cursos, error } = await supabase.from("cursos").select("*");
+    if (error) {
+        console.error("Error al cargar cursos:", error);
+        return;
+    }
+    let listaCursos = document.getElementById("lista");
+    listaCursos.innerHTML = "";
+    cursos.forEach((curso) => {
+        let li = document.createElement("li");
+        li.textContent = curso.nombre;
+        listaCursos.appendChild(li);
+    });
+}
+
+cargarCursos();
