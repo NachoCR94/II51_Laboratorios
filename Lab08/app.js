@@ -20,11 +20,11 @@ from.addEventListener("submit", async (e) => {
     if (editando) {}
     else {await crearCurso(codigo, nombre_Curso, creditos);}
   });
-// =================
+// ===================================
 // CRUD (Create, Read, Update, Delete)
-// =================
+// ====================================
 async function cargarCursos() {     
-    let { data: cursos, error } = await supabase.from("cursos").select("*");
+    let { data: cursos, error } = await supabase.from("Cursos").select("*");
     console.log(cursos);
     if (error) {
         console.error("Error al cargar cursos:", error);
@@ -34,14 +34,14 @@ async function cargarCursos() {
     listaCursos.innerHTML = "";
     cursos.forEach((curso) => {
         let li = document.createElement("li");
-        // li.textContent = `${curso.codigo} - ${curso.nombre_Curso}`;
+        // li.textContent = `${curso.codigo} - ${curso.nombreCurso}`;
         li.textContent = `${curso.codigo} - ${curso.nombre_Curso} [${curso.creditos} créditos]`;
         listaCursos.appendChild(li);
     });
 }
 // Crear Curso
 async function crearCurso(codigo, nombre_Curso, creditos) {
-    const curso = { "codigo": codigo, nombre_Curso, creditos };
+    const curso = {codigo, nombre_Curso, creditos };
     let { error } = await supabase.from("Cursos").insert([curso]);
     if (error) { 
         console.error(error);
