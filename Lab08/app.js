@@ -1,12 +1,11 @@
 import { supabase } from "./supabaseClient.js";    
 
-const from = document.getElementById("curso-form");
-const inputId = document.getElementById("idCurso");
+const inputId = document.getElementById("id"); 
 const inputCodigo = document.getElementById("codigo");
-const inputNombre = document.getElementById("nombre_Curso");
+const inputNombre = document.getElementById("nombre"); 
 const inputCreditos = document.getElementById("creditos");
-const btnSave = document.getElementById("btnSave");
-const btnCancel = document.getElementById("btnCancel");
+const btnSave = document.getElementById("btn-save"); 
+const btnCancel = document.getElementById("btn-cancel"); 
 const statusDiv = document.getElementById("status");
 let editando = false;
 // =================
@@ -24,7 +23,7 @@ from.addEventListener("submit", async (e) => {
 // CRUD (Create, Read, Update, Delete)
 // ====================================
 async function cargarCursos() {     
-    let { data: cursos, error } = await supabase.from("Cursos").select("*");
+    let { data: cursos, error } = await supabase.from("cursos").select("*");
     console.log(cursos);
     if (error) {
         console.error("Error al cargar cursos:", error);
@@ -41,12 +40,12 @@ async function cargarCursos() {
 }
 // Crear Curso
 async function crearCurso(codigo, nombre_Curso, creditos) {
-    const curso = {codigo, nombre_Curso, creditos };
-    let { error } = await supabase.from("Cursos").insert([curso]);
+    const curso={codigo, nombre_Curso, creditos};
+    let {error} = await supabase.from("cursos").insert([curso]);
     if (error) { 
         console.error(error);
-        return
+        return;
     }
-    cargarCursos();
+    cargarCursos(); 
 }
     cargarCursos();
