@@ -1,5 +1,31 @@
 import { supabase } from "./supabaseClient.js";    
 
+const from = document.getElementById("curso-form");
+const inputId = document.getElementById("idCurso");
+const inputCodigo = document.getElementById("codigo");
+const inputNombre = document.getElementById("nombre_Curso");
+const inputCreditos = document.getElementById("creditos");
+const btnSave = document.getElementById("btnSave");
+const btnCancel = document.getElementById("btnCancel");
+const statusDiv = document.getElementById("status");
+let editando = false;
+
+// =================
+// Eventos
+// =================
+from.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const codigo = inputCodigo.value.trim();
+    const nombre_Curso = inputNombre.value.trim();
+    const creditos = parseInt(inputCreditos.value.trim());
+    if (editando) {}
+    else {await crearCurso(codigo, nombre_Curso, creditos);}
+  });
+
+// =================
+// CRUD (Create, Read, Update, Delete)
+// =================
+
 async function cargarCursos() {     
     let { data: cursos, error } = await supabase.from("cursos").select("*");
     console.log(cursos);
@@ -17,5 +43,11 @@ async function cargarCursos() {
         listaCursos.appendChild(li);
     });
 }
-
-cargarCursos();
+async function crearCurso(codigo, nombre_Curso, creditos) {
+    const curso = { "codigo": codigo, nombre_Curso, creditos };
+    let { error } = await supabase.from("Cursos").insert([curso]);
+    if (error) { 
+        console.error(error);
+    }
+}
+    cargarCursos();
