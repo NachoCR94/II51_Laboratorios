@@ -2,6 +2,8 @@ import { supabase } from "./supabaseClient";
 
 async function cargarCursos() {     
     let { data: cursos, error } = await supabase.from("cursos").select("*");
+    console.log(cursos);
+    
     if (error) {
         console.error("Error al cargar cursos:", error);
         return;
