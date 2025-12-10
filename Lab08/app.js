@@ -12,7 +12,8 @@ async function cargarCursos() {
     listaCursos.innerHTML = "";
     cursos.forEach((curso) => {
         let li = document.createElement("li");
-        li.textContent = curso.nombre;
+        // li.textContent = `${curso.codigo} - ${curso.nombre_Curso}`;
+        li.textContent = `${curso.codigo} - ${curso.nombre_Curso} [${curso.creditos} créditos]`;
         listaCursos.appendChild(li);
     });
 }
