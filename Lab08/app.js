@@ -9,7 +9,6 @@ const btnSave = document.getElementById("btnSave");
 const btnCancel = document.getElementById("btnCancel");
 const statusDiv = document.getElementById("status");
 let editando = false;
-
 // =================
 // Eventos
 // =================
@@ -21,15 +20,12 @@ from.addEventListener("submit", async (e) => {
     if (editando) {}
     else {await crearCurso(codigo, nombre_Curso, creditos);}
   });
-
 // =================
 // CRUD (Create, Read, Update, Delete)
 // =================
-
 async function cargarCursos() {     
     let { data: cursos, error } = await supabase.from("cursos").select("*");
     console.log(cursos);
-
     if (error) {
         console.error("Error al cargar cursos:", error);
         return;
@@ -43,11 +39,14 @@ async function cargarCursos() {
         listaCursos.appendChild(li);
     });
 }
+// Crear Curso
 async function crearCurso(codigo, nombre_Curso, creditos) {
     const curso = { "codigo": codigo, nombre_Curso, creditos };
     let { error } = await supabase.from("Cursos").insert([curso]);
     if (error) { 
         console.error(error);
+        return
     }
+    cargarCursos();
 }
     cargarCursos();
