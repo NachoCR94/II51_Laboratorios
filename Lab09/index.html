@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <title>Ejemplo Base - JavaScript Interactivo</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px;}
         #canvasArea { 
             border: 1px solid black; 
             margin-bottom: 20px; 
@@ -63,28 +60,89 @@
     <img id="preview" class="preview" src="">
 
 <script>
-    // Canvas
+    // ===================================
+    // 1. CANVAS: Dibujar Círculo Rojo
+    // ===================================
     function draw() {
         const canvas = document.getElementById('canvasArea');
         const ctx = canvas.getContext('2d');
+        
+        // Limpiar el canvas antes de dibujar uno nuevo
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Iniciar el camino para dibujar
         ctx.beginPath();
-        ctx.arc(150, 50, 0, 2 * Math.PI);
-        ctx.fillStyle = '#e74c3c';
+        
+        // Dibujar el arco (Círculo de radio 40, centrado en (150, 100))
+        // NOTA: Se modificó la llamada ctx.arc() para que el círculo se vea correctamente.
+        // La imagen previa tenía ctx.arc(150, 50, 0, 2 * Math.PI); lo cual dibuja un punto.
+        ctx.arc(150, 100, 40, 0, 2 * Math.PI); 
+        
+        // Rellenar con color rojo
+        ctx.fillStyle = '#e74c3c'; // Rojo (Código original)
         ctx.fill();
     }
 
-    // Drag and Drop
+    // ===================================
+    // 2. DRAG AND DROP
+    // ===================================
+
+    // Función que permite que un elemento sea soltado sobre el área.
     function allowDrop(ev) {
         ev.preventDefault();
+        // Opcional: Agregar clase 'over' para realimentación visual (manejo con CSS)
+        if (ev.target.classList.contains('drop-zone')) {
+            ev.target.classList.add('over');
+        }
     }
 
+    // Función que se llama cuando el arrastre comienza (guardar el ID del elemento)
     function drag(ev) {
+        // Almacenar el ID del elemento arrastrado
         ev.dataTransfer.setData("text", ev.target.id);
     }
     
-    // NOTA: La función `drop(ev)` y la función `previewFile(event)` 
-    // no son visibles en la imagen proporcionada.
+    // Función que se llama cuando se suelta el elemento en la zona de destino.
+    function drop(ev) {
+        ev.preventDefault();
+        // Remover la clase 'over'
+        if (ev.target.classList.contains('drop-zone')) {
+            ev.target.classList.remove('over');
+        }
+
+        // Obtener el ID del elemento arrastrado
+        var data = ev.dataTransfer.getData("text");
+        var draggedElement = document.getElementById(data);
+
+        // Mover el elemento arrastrado a la zona de destino
+        // Usamos appendChild para colocar el elemento dentro de la caja de destino.
+        ev.target.appendChild(draggedElement); 
+        
+        // Opcional: Ajustar el estilo del elemento arrastrado para que se centre mejor en la caja de destino.
+        draggedElement.style.margin = 'auto';
+        draggedElement.style.position = 'relative';
+        
+    }
+    
+    // ===================================
+    // 3. LECTURA DE ARCHIVOS (Preview)
+    // ===================================
+    function previewFile(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            var preview = document.getElementById('preview');
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            var preview = document.getElementById('preview');
+            preview.src = "";
+        }
+    }
 </script>
-    </body>
+</body>
 </html>
