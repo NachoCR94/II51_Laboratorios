@@ -69,3 +69,16 @@ window.eliminarProfesor = async (id) => {
 };
 
 document.addEventListener('DOMContentLoaded', cargarProfesores);
+
+// Lógica para cerrar sesión
+const btnLogout = document.getElementById('btn-logout');
+
+if (btnLogout) {
+    btnLogout.addEventListener('click', async () => {
+        const confirmar = confirm("¿Estás seguro de que deseas cerrar sesión?");
+        if (confirmar) {
+            // Si usas Supabase Auth en el futuro, aquí iría: await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+    });
+}

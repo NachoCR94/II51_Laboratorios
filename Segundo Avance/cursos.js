@@ -101,3 +101,16 @@ btnCancel.onclick = resetForm;
 
 // Cargar datos al iniciar
 document.addEventListener('DOMContentLoaded', cargarCursos);
+
+// Lógica para cerrar sesión
+const btnLogout = document.getElementById('btn-logout');
+
+if (btnLogout) {
+    btnLogout.addEventListener('click', async () => {
+        const confirmar = confirm("¿Estás seguro de que deseas cerrar sesión?");
+        if (confirmar) {
+            // Si usas Supabase Auth en el futuro, aquí iría: await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+    });
+}
