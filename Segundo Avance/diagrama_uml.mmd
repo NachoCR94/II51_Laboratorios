@@ -1,50 +1,52 @@
-class Estudiante {
-    -id: int
-    -nombre: string
-    -email: string
-    -carrera: string
-    +registrar(): void
-    +editarPerfil(): void
-    +consultarCursosDisponibles(): List<Curso>
-    +consultarCursosMatriculados(): List<Curso>
-}
+classDiagram
+    class Estudiante {
+        -id: int
+        -nombre: string
+        -email: string
+        -carrera: string
+        +registrar(): void
+        +editarPerfil(): void
+        +consultarCursosDisponibles(): List<Curso>
+        +consultarCursosMatriculados(): List<Curso>
+    }
+ 
+    class Curso {
+        -codigo: string
+        -nombre: string
+        -creditos: int
+        +matricular(): void
+        +retirar(): void
+    }
 
-class Curso {
-    -codigo: string
-    -nombre: string
-    -creditos: int
-    +matricular(): void
-    +retirar(): void
-}
+    class Periodo {
+        -año: int
+        -nombre: string
+        -activo: boolean
+        +iniciarPeriodo(): void
+        +finalizarPeriodo(): void
+    }
+ 
+  class PeriodoCurso {
+        -idCurso: string
+        -idPeriodo: int
+        -idProfesor: int
+        -horario: string
+        +asignarProfesor(): void
+        +definirHorario(): void
+    }
 
-class Periodo {
-    -año: int
-    -nombre: string
-    -activo: boolean
-    +iniciarPeriodo(): void
-    +finalizarPeriodo(): void
-}
+  class Profesor {
+        -id: int
+        -nombre: string
+        -email: string
+        -departamento: string
+        +asignarCurso(): void
+        +editarPerfil(): void
+        +consultarCursosAsignados(): List<PeriodoCurso>
+    }
 
-class PeriodoCurso {
-    -idCurso: string
-    -idPeriodo: int
-    -idProfesor: int
-    -horario: string
-    +asignarProfesor(): void
-    +definirHorario(): void
-}
-
-class Profesor {
-    -id: int
-    -nombre: string
-    -email: string
-    -departamento: string
-    +asignarCurso(): void
-    +editarPerfil(): void
-    +consultarCursosAsignados(): List<PeriodoCurso>
-}
-
-Curso "1" -- "1" Periodo : ofrecido en
-Periodo "1" -- "*" PeriodoCurso : contiene
-PeriodoCurso "*" -- "1" Profesor : asignado a
-Estudiante "0..*" -- "0..*" PeriodoCurso : matrícula en
+    Curso "1" --> "1" Periodo : ofrecido en
+    Periodo "*" --> "*" PeriodoCurso : contiene
+    PeriodoCurso "*" --> "*" Profesor : asignado a
+    Profesor "*" --> "*" Estudiante : matrícula
+    
