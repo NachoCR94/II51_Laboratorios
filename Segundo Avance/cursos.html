@@ -21,323 +21,80 @@
         }
     </style>
 </head>
+
 <body>
-
     <div class="min-h-screen p-4 sm:p-10">
-        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
-            
-            <header class="p-6 bg-gray-900 rounded-t-xl">
-                <h1 class="text-3xl font-extrabold text-white">Catálogo de Cursos por Cuatrimestre</h1>
-                <p class="mt-1 text-gray-300">Detalle de grupos, horarios y disponibilidad de cupos.</p>
-            </header>
+        <nav class="max-w-6xl mx-auto mb-4 bg-gray-900 p-4 rounded-xl shadow-lg">
+            <ul class="flex justify-center gap-6 text-white font-bold">
+                <li><a href="index.html" class="hover:text-blue-400">Login</a></li>
+                <li><a href="estudiantes.html" class="hover:text-blue-400">Estudiantes</a></li> 
+                <li><a href="cursos.html" class="text-blue-400 border-b-2 border-blue-400">Cursos</a></li>
+                <li><a href="profesores.html" class="hover:text-blue-400">Profesores</a></li>
+            </ul>
+        </nav>
 
+        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+            <header class="p-6 bg-gray-900 rounded-t-xl">
+                <h1 class="text-3xl font-extrabold text-white">Catálogo de Cursos</h1>
+            </header>
+            
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="table-cell-custom text-left font-bold text-gray-500 uppercase tracking-wider">
-                                Curso (Grupo ID)
-                            </th>
-                            <th scope="col" class="table-cell-custom text-left font-bold text-gray-500 uppercase tracking-wider">
-                                Cuatrimestre / Profesor
-                            </th>
-                            <th scope="col" class="table-cell-custom text-left font-bold text-gray-500 uppercase tracking-wider">
-                                Horario
-                            </th>
-                            <th scope="col" class="table-cell-custom text-center font-bold text-gray-500 uppercase tracking-wider">
-                                Cupos Totales
-                            </th>
-                            <th scope="col" class="table-cell-custom text-center font-bold text-gray-500 uppercase tracking-wider">
-                                Cupos Disponibles
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="cursos-body" class="bg-white divide-y divide-gray-200">
-                        <!-- Las filas de los cursos se inyectarán aquí por JavaScript -->
-                        <tr>
-                            <td colspan="5" class="p-4 text-center text-gray-500 italic">Cargando datos de cursos...</td>
-                        </tr>
-                    </tbody>
+                        </thead>
+                    <tbody id="cursos-body">
+                        </tbody>
                 </table>
             </div>
-            
-            <footer class="p-4 bg-gray-100 text-center text-sm text-gray-500 rounded-b-xl">
-                Cupos: 30 / 30 (Datos de ejemplo)
-            </footer>
         </div>
     </div>
 
-    <script>
-        // Definición de los datos de los cursos (la data original del usuario)
-        const cursosData = [
-            // 1er Cuatrimestre
-            { cuatrimestre: '1er Cuatrimestre', nombre: 'COMUNICACION (EG-10)', grupos: [
-                { id: 'C1-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
-                { id: 'C1-6', dia: 'K', hora: '3:00PM-6:00PM' },
-                { id: 'C1-7', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'C1-11', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'C1-15', dia: 'S', hora: '8:00AM-11:00AM' },
-                { id: 'C1-16', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. A' },
-            { cuatrimestre: '1er Cuatrimestre', nombre: 'INGLES I (IN-10)', grupos: [
-                { id: 'I1-17', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
-                { id: 'I1-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'I1-4', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'I1-5', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'I1-9', dia: 'K', hora: '8:00AM-11:00AM' },
-                { id: 'I1-10', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'I1-16', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. B' },
-            { cuatrimestre: '1er Cuatrimestre', nombre: 'INTRODUCCION A LA INFORMATICA (II-11)', grupos: [
-                { id: 'IN1-1', dia: 'K', hora: '6:30PM-9:30PM' }, 
-                { id: 'IN1-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'IN1-3', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'IN1-4', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. C' },
-            { cuatrimestre: '1er Cuatrimestre', nombre: 'MATEMATICA I (MA-11)', grupos: [
-                { id: 'M1-15', dia: 'L', hora: '6:30PM-9:30PM', teoria: true },
-                { id: 'M1-16', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
-                { id: 'M1-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'M1-2', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'M1-3', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'M1-4', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'M1-5', dia: 'L', hora: '8:00AM-11:00AM' },
-                { id: 'M1-6', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'M1-7', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'M1-8', dia: 'K', hora: '8:00AM-11:00AM' },
-                { id: 'M1-9', dia: 'K', hora: '3:00PM-6:00PM' },
-                { id: 'M1-10', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'M1-11', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'M1-12', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'M1-13', dia: 'S', hora: '8:00AM-11:00AM' },
-                { id: 'M1-14', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. D' },
-            
-            // 2do Cuatrimestre
-            { cuatrimestre: '2do Cuatrimestre', nombre: 'ADMINISTRACION I (AE-10)', grupos: [
-                { id: 'A2-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'A2-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'A2-3', dia: 'K', hora: '8:00AM-11:00AM' },
-                { id: 'A2-4', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'A2-5', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'A2-6', dia: 'M', hora: '8:00AM-11:00AM' },
-                { id: 'A2-7', dia: 'S', hora: '8:00AM-11:00AM' },
-                { id: 'A2-8', dia: 'V', hora: '6:30PM-9:30PM' },
-                { id: 'A2-9', dia: 'M', hora: '6:30PM-9:30PM', teoria: true },
-            ], profesor: 'Prof. E' },
-            { cuatrimestre: '2do Cuatrimestre', nombre: 'CONTABILIDAD P/ INGENIERIA (CP-15)', grupos: [
-                { id: 'CI2-1', dia: 'L', hora: '6:30PM-9:30PM' }, 
-                { id: 'CI2-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'CI2-3', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'CI2-4', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'CI2-5', dia: 'V', hora: '6:30PM-9:30PM' },
-                { id: 'CI2-6', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'CI2-7', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'CI2-1L', dia: 'L', hora: '6:30PM-9:30PM', teoria: true },
-                { id: 'CI2-2K', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
-                { id: 'CI2-8', dia: 'L', hora: '6:30PM-9:30PM', teoria: true },
-                { id: 'CI2-9', dia: 'K', hora: '6:30PM-9:30PM', teoria: true },
-            ], profesor: 'Prof. F' },
-            { cuatrimestre: '2do Cuatrimestre', nombre: 'INGLES II (IN-20)', grupos: [
-                { id: 'IN2-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
-                { id: 'IN2-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'IN2-3', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'IN2-4', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'IN2-6', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'IN2-7', dia: 'S', hora: '11:00AM-2:00PM' },
-                { id: 'IN2-8', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. G' },
-            { cuatrimestre: '2do Cuatrimestre', nombre: 'PROG. DE COMPT. I (TURBO P.) (II-21)', grupos: [
-                { id: 'P2-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'P2-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'P2-3', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'P2-4', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. H' },
+    <script type="module" src="cursos.js"></script>
 
-            // 3er Cuatrimestre
-            { cuatrimestre: '3er Cuatrimestre', nombre: 'ARQUITECTURA DE COMPUTADORES (II-48)', grupos: [
-                { id: 'AR3-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
-                { id: 'AR3-2', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'AR3-3', dia: 'M', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. I' },
-            { cuatrimestre: '3er Cuatrimestre', nombre: 'CALCULO I (MA-33)', grupos: [
-                { id: 'C3-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
-                { id: 'C3-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'C3-3', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'C3-4', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'C3-5', dia: 'K', hora: '3:00PM-6:00PM' },
-                { id: 'C3-6', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'C3-7', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'C3-8', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'C3-9', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'C3-10', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. J' },
-            { cuatrimestre: '3er Cuatrimestre', nombre: 'ECONOMIA PARA INGENIERIA (EE142)', grupos: [
-                { id: 'E3-9', dia: 'M', hora: '6:30PM-9:30PM' }, 
-                { id: 'E3-10', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'E3-11', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'E3-12', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'E3-13', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'E3-14', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'E3-15', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'E3-16', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. K' },
-            { cuatrimestre: '3er Cuatrimestre', nombre: 'PROGRAMACION INTERNET (II-51)', grupos: [
-                { id: 'P3-1', dia: 'L', hora: '6:30PM-9:30PM' }, 
-                { id: 'P3-2', dia: 'M', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. L' },
-            { cuatrimestre: '3er Cuatrimestre', nombre: 'SISTEMAS COMPUTACIONALES (C) (II-60)', grupos: [
-                { id: 'SC3-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
-                { id: 'SC3-2', dia: 'V', hora: '6:30PM-9:30PM' },
-                { id: 'SC3-3', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'SC3-4', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. M' },
-
-            // 4to Cuatrimestre
-            { cuatrimestre: '4to Cuatrimestre', nombre: 'ESTRUCTURAS DE DATOS Y ALGORITMOS (II-35)', grupos: [
-                { id: 'E4-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'E4-2', dia: 'K', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. N' },
-            { cuatrimestre: '4to Cuatrimestre', nombre: 'FINANZAS P/INGENIERIA/ARQUITEC (F-140)', grupos: [
-                { id: 'F4-1', dia: 'J', hora: '6:30PM-9:30PM' }, 
-                { id: 'F4-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'F4-3', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'F4-4', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'F4-5', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. O' },
-            { cuatrimestre: '4to Cuatrimestre', nombre: 'METODOS ESTADISTICOS I (ES-10)', grupos: [
-                { id: 'ME4-12', dia: 'M', hora: '6:30PM-9:30PM', teoria: true },
-                { id: 'ME4-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'ME4-2', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'ME4-5', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'ME4-7', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'ME4-11', dia: 'S', hora: '8:00AM-11:00AM' },
-            ], profesor: 'Prof. P' },
-            { cuatrimestre: '4to Cuatrimestre', nombre: 'PROG.COMPUTAD. II (VIS.BASIC) (II-36)', grupos: [
-                { id: 'PC4-1', dia: 'L', hora: '6:30PM-9:30PM' },
-                { id: 'PC4-2', dia: 'L', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. Q' },
-
-            // 5to Cuatrimestre
-            { cuatrimestre: '5to Cuatrimestre', nombre: 'ORGANIZACION DE ARCHIVOS (II-45)', grupos: [
-                { id: 'OA5-1', dia: 'M', hora: '6:30PM-9:30PM' }, 
-                { id: 'OA5-2', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. R' },
-            { cuatrimestre: '5to Cuatrimestre', nombre: 'PROG.COMPUT.III (VIS.BAS.AVAN) (II-46)', grupos: [
-                { id: 'PC5-1', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'PC5-2', dia: 'L', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. S' },
-            { cuatrimestre: '5to Cuatrimestre', nombre: 'SISTEMAS OPERATIVOS I (II-50)', grupos: [
-                { id: 'SO5-1', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'SO5-2', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'SO5-3', dia: 'L', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. T' },
-
-            // 6to Cuatrimestre
-            { cuatrimestre: '6to Cuatrimestre', nombre: 'ADMINISTRACION DE PROYECTOS (II-86)', grupos: [
-                { id: 'AP6-1', dia: 'J', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. U' },
-            { cuatrimestre: '6to Cuatrimestre', nombre: 'ANALISIS Y DIS. DE SIST. I (II-65)', grupos: [
-                { id: 'AD6-1', dia: 'L', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. V' },
-            { cuatrimestre: '6to Cuatrimestre', nombre: 'DIS. Y OPTIM. BASES DE DATOS (II-55)', grupos: [
-                { id: 'DO6-1', dia: 'K', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. W' },
-            { cuatrimestre: '6to Cuatrimestre', nombre: 'TELEMATICA I (II-76)', grupos: [
-                { id: 'T6-1', dia: 'V', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. X' },
-
-            // 7mo Cuatrimestre
-            { cuatrimestre: '7mo Cuatrimestre', nombre: 'ADMINISTR. CENTROS DE COMPUTO (II-84)', grupos: [
-                { id: 'ACC7-1', dia: 'K', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. Y' },
-            { cuatrimestre: '7mo Cuatrimestre', nombre: 'ANALISIS Y DIS. DE SIST. II (II-75)', grupos: [
-                { id: 'AD7-1', dia: 'J', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. Z' },
-            { cuatrimestre: '7mo Cuatrimestre', nombre: 'INVESTIGACION DE OPERATIVA I (II-68)', grupos: [
-                { id: 'IO7-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'IO7-2', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'IO7-3', dia: 'K', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. AA' },
-            { cuatrimestre: '7mo Cuatrimestre', nombre: 'Taller Final de Graduacion (TFG-INF)', grupos: [
-                { id: 'TFG7-1', dia: 'S', hora: '8:00AM-11:00AM' },
-                { id: 'TFG7-2', dia: 'S', hora: '8:00AM-11:00AM' },
-            ], profesor: 'Prof. BB' },
-            
-            // 8vo Cuatrimestre
-            { cuatrimestre: '8vo Cuatrimestre', nombre: 'AUDITORIA SIST. COMPUTACIONAL. (II-82)', grupos: [
-                { id: 'AS8-1', dia: 'M', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. CC' },
-            { cuatrimestre: '8vo Cuatrimestre', nombre: 'INVESTIGAC. C. DE OPERACIONES II (II-78)', grupos: [
-                { id: 'IO8-1', dia: 'J', hora: '6:30PM-9:30PM' },
-                { id: 'IO8-2', dia: 'M', hora: '6:30PM-9:30PM' },
-                { id: 'IO8-3', dia: 'K', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. DD' },
-            { cuatrimestre: '8vo Cuatrimestre', nombre: 'PROG. DE LENG. DE 4TA GENERACION (II-88)', grupos: [
-                { id: 'PL8-1', dia: 'K', hora: '6:30PM-9:30PM' },
-                { id: 'PL8-2', dia: 'K', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. EE' },
-            { cuatrimestre: '8vo Cuatrimestre', nombre: 'TELEMATICA II (II-90)', grupos: [
-                { id: 'T8-1', dia: 'L', hora: '6:30PM-9:30PM' },
-            ], profesor: 'Prof. FF' },
-        ];
-
-        // Función para mapear el código del día a su nombre completo
-        function mapDia(codigo) {
-            switch (codigo) {
-                case 'L': return 'Lunes';
-                case 'M': return 'Martes';
-                case 'K': return 'Miércoles'; // Asumiendo K para evitar conflicto con M (Martes)
-                case 'J': return 'Jueves';
-                case 'V': return 'Viernes';
-                case 'S': return 'Sábado';
-                default: return codigo;
-            }
-        }
-
-        // Función principal para generar las filas de la tabla
-        function generateTableRows() {
-            const tbody = document.getElementById('cursos-body');
-            let htmlContent = '';
-            
-            // Iterar sobre cada curso
-            cursosData.forEach((curso) => {
-                // Iterar sobre cada grupo dentro del curso
-                curso.grupos.forEach((grupo) => {
-                    const diaCompleto = mapDia(grupo.dia);
-                    const horarioCompleto = `${diaCompleto}, ${grupo.hora}`;
-                    const cursoCompleto = `${curso.nombre} - Grupo ${grupo.id}`;
-                    const cuatrimestreProfesor = `${curso.cuatrimestre} / ${curso.profesor}`;
-                    const tipoClase = grupo.teoria ? ' (Teoría)' : '';
-
-                    htmlContent += `
-                        <tr class="hover:bg-gray-100 transition duration-150">
-                            <td class="table-cell-custom font-semibold text-gray-900">
-                                ${cursoCompleto}
-                            </td>
-                            <td class="table-cell-custom text-gray-500">
-                                ${cuatrimestreProfesor}
-                            </td>
-                            <td class="table-cell-custom text-gray-700">
-                                ${horarioCompleto}${tipoClase}
-                            </td>
-                            <td class="table-cell-custom text-center text-gray-700 font-medium">
-                                30
-                            </td>
-                            <td class="table-cell-custom text-center text-green-600 font-bold">
-                                30
-                            </td>
-                        </tr>
-                    `;
-                });
-            });
-
-            // Inyectar el contenido HTML en la tabla
-            tbody.innerHTML = htmlContent;
-        }
-
-        // Ejecutar la función cuando la ventana haya cargado
-        window.onload = generateTableRows;
-    </script>
 </body>
 </html>
+
+<div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+    
+    <header class="p-6 bg-gray-900 rounded-t-xl">
+        <h1 class="text-3xl font-extrabold text-white">Sesión de Registro de Cursos</h1>
+    </header>
+
+    <div class="p-6 border-b bg-gray-50">
+        <h2 id="form-title" class="text-xl font-bold mb-4 text-gray-800">Registrar curso</h2>
+        <form id="curso-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <input type="hidden" id="id">
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Código</label>
+                <input type="text" id="codigo" required class="mt-1 block w-full border rounded-md p-2">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Nombre del curso</label>
+                <input type="text" id="nombre" required class="mt-1 block w-full border rounded-md p-2">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Créditos</label>
+                <input type="number" id="creditos" required min="1" max="10" class="mt-1 block w-full border rounded-md p-2">
+            </div>
+
+            <div class="flex gap-2">
+                <button type="submit" id="btn-save" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Guardar
+                </button>
+                <button type="button" id="btn-cancel" style="display:none;" class="bg-gray-400 text-white px-4 py-2 rounded-md">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+        <div id="status" class="mt-2 text-sm"></div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            </table>
+    </div>
+</div>
+    
