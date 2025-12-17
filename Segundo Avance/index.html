@@ -283,10 +283,10 @@
     <nav>
         <ul>
             <!-- Los enlaces de navegación ahora usan una función simple de JavaScript -->
-            <li><a href="#" onclick="showPage('index.html')" class="active">Login</a></li>
-            <li><a href="#" onclick="showPage('estudiantes.html')">Estudiantes</a></li> 
-            <li><a href="#" onclick="showPage('cursos.html')">Cursos</a></li>
-            <li><a href="#" onclick="showPage('profesores.html')">Profesores</a></li>
+            <li><a href="index.html" class="active">Login</a></li>
+            <li><a href="estudiantes.html">Estudiantes</a></li> 
+            <li><a href="cursos.html">Cursos</a></li>
+            <li><a href="profesores.html">Profesores</a></li>
         </ul>
     </nav>
 
@@ -330,7 +330,7 @@
 </div>
 
 <!-- Script para la lógica de redirección -->
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script type="module" src="login.js"></script>
 <script>
     // Función principal para manejar el envío del formulario de login
     function handleLogin(event) {
