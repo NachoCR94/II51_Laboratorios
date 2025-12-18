@@ -33,7 +33,7 @@ async function cargarEstudiantes() {
     });
 }
 
-// 2. LOGICA DE GUARDAR / ACTUALIZAR (CREATE & UPDATE)
+// 2.  GUARDAR / ACTUALIZAR (CREATE & UPDATE)
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     

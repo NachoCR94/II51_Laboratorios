@@ -21,7 +21,6 @@ loginForm.addEventListener('submit', async (e) => {
 
         if (data) {
     console.log("Ingreso exitoso");
-    // AQUÍ es donde debe decir estudiantes.html
     window.location.href = "estudiantes.html"; 
 }
             
