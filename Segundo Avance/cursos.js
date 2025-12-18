@@ -114,3 +114,35 @@ if (btnLogout) {
         }
     });
 }
+
+// --- LÓGICA DE BÚSQUEDA PARA CURSOS ---
+const btnBuscarCurso = document.getElementById('btn-buscar-curso');
+const inputBusquedaCurso = document.getElementById('inputBusquedaCurso');
+
+function ejecutarBusquedaCurso() {
+    const textoBusqueda = inputBusquedaCurso.value.toLowerCase().trim();
+    const filas = document.querySelectorAll('#cursos-body tr');
+
+    filas.forEach(fila => {
+        const contenido = fila.textContent.toLowerCase();
+        
+        if (textoBusqueda === "" || contenido.includes(textoBusqueda)) {
+            fila.style.display = ""; // Mostrar fila
+        } else {
+            fila.style.display = "none"; // Ocultar fila
+        }
+    });
+}
+
+if (btnBuscarCurso) {
+    btnBuscarCurso.addEventListener('click', ejecutarBusquedaCurso);
+}
+
+// Permitir búsqueda al presionar "Enter"
+if (inputBusquedaCurso) {
+    inputBusquedaCurso.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            ejecutarBusquedaCurso();
+        }
+    });
+}

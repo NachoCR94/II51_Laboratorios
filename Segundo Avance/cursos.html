@@ -3,25 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla de Horarios de Cursos</title>
-    <!-- Carga de Tailwind CSS -->
+    <title>Gestión de Cursos - UC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Definir la fuente Inter para todo */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f7f7;
-        }
-        /* Estilo para las celdas de la tabla */
-        .table-cell-custom {
-            padding: 1rem 1.5rem;
-            white-space: nowrap;
-            font-size: 0.875rem; /* text-sm */
-            border-bottom: 1px solid #e5e7eb;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        .table-cell-custom { padding: 1rem 1.5rem; font-size: 0.875rem; border-bottom: 1px solid #e5e7eb; }
     </style>
 </head>
-
 <body>
     <div class="min-h-screen p-4 sm:p-10">
         <nav class="max-w-6xl mx-auto mb-4 bg-gray-900 p-4 rounded-xl shadow-lg">
@@ -30,29 +18,66 @@
                 <li><a href="estudiantes.html" class="hover:text-blue-400">Estudiantes</a></li> 
                 <li><a href="cursos.html" class="text-blue-400 border-b-2 border-blue-400">Cursos</a></li>
                 <li><a href="profesores.html" class="hover:text-blue-400">Profesores</a></li>
-                <li>
-<button id="btn-logout" class="fixed bottom-4 right-4 bg-gray-700 hover:bg-gray-800 text-white px-3 py-1 rounded-md transition duration-300 text-xs shadow-md">
-    Cerrar Sesión
-</button>
-        </li>
             </ul>
+            <button id="btn-logout" class="fixed bottom-4 right-4 bg-gray-700 hover:bg-gray-800 text-white px-3 py-1 rounded-md transition duration-300 text-xs shadow-md">
+                Cerrar Sesión
+            </button>
         </nav>
 
-        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
-            <header class="p-6 bg-gray-900 rounded-t-xl">
-                <h1 class="text-3xl font-extrabold text-white">Catálogo de Cursos</h1>
+        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden mb-10">
+            <header class="p-6 bg-gray-900">
+                <h1 class="text-3xl font-extrabold text-white">Sesión de Registro de Cursos</h1>
             </header>
-            
+
+            <div class="p-6 border-b bg-gray-50">
+                <h2 id="form-title" class="text-xl font-bold mb-4 text-gray-800">Registrar curso</h2>
+                <form id="curso-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                    <input type="hidden" id="id">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Código</label>
+                        <input type="text" id="codigo" required class="mt-1 block w-full border rounded-md p-2" placeholder="Ej: IF-1000">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nombre del curso</label>
+                        <input type="text" id="nombre" required class="mt-1 block w-full border rounded-md p-2" placeholder="Ej: Programación I">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Créditos</label>
+                        <input type="number" id="creditos" required min="1" max="10" class="mt-1 block w-full border rounded-md p-2">
+                    </div>
+                    <div class="flex gap-2">
+                        <button type="submit" id="btn-save" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex-1 font-bold">Guardar</button>
+                        <button type="button" id="btn-cancel" style="display:none;" class="bg-gray-400 text-white px-4 py-2 rounded-md">X</button>
+                    </div>
+                </form>
+                <div id="status" class="mt-2 text-sm"></div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+            <header class="p-6 bg-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <h1 class="text-2xl font-bold text-white">Catálogo de Cursos</h1>
+                
+                <div class="flex gap-2 w-full md:w-auto">
+                    <input type="text" id="inputBusquedaCurso" 
+                        class="flex-1 md:w-64 pl-4 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        placeholder="Buscar por nombre o código...">
+                    <button id="btn-buscar-curso" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 font-bold text-sm transition">
+                        Buscar
+                    </button>
+                </div>
+            </header>
+
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
-    <tr>
-        <th class="table-cell-custom text-left font-bold text-gray-500 uppercase">Código</th>
-        <th class="table-cell-custom text-left font-bold text-gray-500 uppercase">Curso</th>
-        <th class="table-cell-custom text-center font-bold text-gray-500 uppercase">Créditos</th>
-        <th class="table-cell-custom text-right font-bold text-gray-500 uppercase">Acciones</th>
-    </tr>
-</thead>
+                        <tr>
+                            <th class="table-cell-custom text-left font-bold text-gray-500 uppercase">Código</th>
+                            <th class="table-cell-custom text-left font-bold text-gray-500 uppercase">Curso</th>
+                            <th class="table-cell-custom text-center font-bold text-gray-500 uppercase">Créditos</th>
+                            <th class="table-cell-custom text-right font-bold text-gray-500 uppercase">Acciones</th>
+                        </tr>
+                    </thead>
                     <tbody id="cursos-body">
                         </tbody>
                 </table>
@@ -61,51 +86,5 @@
     </div>
 
     <script type="module" src="cursos.js"></script>
-
 </body>
 </html>
-
-<div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
-    
-    <header class="p-6 bg-gray-900 rounded-t-xl">
-        <h1 class="text-3xl font-extrabold text-white">Sesión de Registro de Cursos</h1>
-    </header>
-
-    <div class="p-6 border-b bg-gray-50">
-        <h2 id="form-title" class="text-xl font-bold mb-4 text-gray-800">Registrar curso</h2>
-        <form id="curso-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-            <input type="hidden" id="id">
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Código</label>
-                <input type="text" id="codigo" required class="mt-1 block w-full border rounded-md p-2">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Nombre del curso</label>
-                <input type="text" id="nombre" required class="mt-1 block w-full border rounded-md p-2">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Créditos</label>
-                <input type="number" id="creditos" required min="1" max="10" class="mt-1 block w-full border rounded-md p-2">
-            </div>
-
-            <div class="flex gap-2">
-                <button type="submit" id="btn-save" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                    Guardar
-                </button>
-                <button type="button" id="btn-cancel" style="display:none;" class="bg-gray-400 text-white px-4 py-2 rounded-md">
-                    Cancelar
-                </button>
-            </div>
-        </form>
-        <div id="status" class="mt-2 text-sm"></div>
-    </div>
-
-    <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            </table>
-    </div>
-</div>
-    

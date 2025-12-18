@@ -82,3 +82,38 @@ if (btnLogout) {
         }
     });
 }
+
+// --- LÓGICA DE BÚSQUEDA PARA TARJETAS DE PROFESORES ---
+const btnBuscarProf = document.getElementById('btn-buscar-prof');
+const inputBusquedaProf = document.getElementById('inputBusquedaProf');
+
+function ejecutarBusquedaProf() {
+    const textoBusqueda = inputBusquedaProf.value.toLowerCase().trim();
+    
+    // Seleccionamos todas las tarjetas que se crean dentro del grid
+    const tarjetas = document.querySelectorAll('.professor-card'); 
+
+    tarjetas.forEach(tarjeta => {
+        // Obtenemos el texto de la tarjeta (nombre, departamento, correo)
+        const contenido = tarjeta.textContent.toLowerCase();
+        
+        if (textoBusqueda === "" || contenido.includes(textoBusqueda)) {
+            tarjeta.style.display = ""; // Se muestra
+        } else {
+            tarjeta.style.display = "none"; // Se oculta
+        }
+    });
+}
+
+if (btnBuscarProf) {
+    btnBuscarProf.addEventListener('click', ejecutarBusquedaProf);
+}
+
+// También buscar al presionar Enter
+if (inputBusquedaProf) {
+    inputBusquedaProf.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            ejecutarBusquedaProf();
+        }
+    });
+}

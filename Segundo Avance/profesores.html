@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profesores - Sistema UC</title>
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22https://www.google.com/search?q=http://www.w3.org/2000/svg%2522 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23005DA4%22 font-family=%22Inter, sans-serif%22 font-weight=%22800%22>UC</text></svg>">
 
 <!-- CSS EMBEBIDO: Se utiliza el mismo bloque de estilos para consistencia -->
@@ -279,6 +280,16 @@
         </form>
         <div id="status" style="margin-top: 1rem; font-size: 0.9rem; min-height: 1.2rem; font-weight: 500;"></div>
     </div>
+
+    <div style="background: white; padding: 2.0rem; border-radius: 1rem; margin-bottom: 2rem; border: 50px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); display: flex; justify-content: flex-end; align-items: center; gap: 1px;">
+    <span style="font-weight: bold; color: var(--uc-blue); font-size: 0.9rem;">Filtrar Directorio:</span>
+    <input type="text" id="inputBusquedaProf" placeholder="Buscar por nombre, correo o departamento..." 
+           style="padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; outline: none; width: 320px; font-family: 'Inter', sans-serif;">
+    <button id="btn-buscar-prof" 
+            style="background: var(--uc-blue); color: white; padding: 0.6rem 1.5rem; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; transition: background 0.3s;">
+        Buscar
+    </button>
+</div>
 
     <h2 class="section-title">Facultad de Ingeniería y Ciencias</h2>
 
